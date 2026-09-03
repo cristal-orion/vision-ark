@@ -41,6 +41,7 @@ RUN printf 'server {\n\
     listen 4321;\n\
     server_name _;\n\
     port_in_redirect off;\n\
+    absolute_redirect off;\n\
     root /usr/share/nginx/html;\n\
     index index.html;\n\
 \n\
