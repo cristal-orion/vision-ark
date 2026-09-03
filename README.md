@@ -192,6 +192,71 @@ nginx serve `/`, `/privacy/` e un 404 vero con pagina propria (`/404.html`),
 non un rimando alla home: il sito ha più pagine, non è una SPA. Gli asset con
 hash sotto `/_astro/` sono cacheati un anno con `immutable`.
 
+### Runbook per un agente sulla VPS
+
+Questa parte è scritta per un assistente che opera **sulla macchina** dove gira
+Coolify. Descrive l'obiettivo e i vincoli, non i comandi: gli strumenti che hai
+a disposizione li conosci meglio tu, che sei sulla macchina.
+
+**Dispiega prima il relay** (`form-relay`, altro repository, con un runbook suo
+in `deploy/coolify.md`) e verificalo isolato: questo sito dipende da lui.
+
+**Obiettivo.** Una risorsa Coolify che serve questo repository in HTTPS al
+dominio del cliente. È fatta quando: la pagina risponde `200`, il certificato è
+emesso, e il modulo di preventivo invia davvero — non quando il sito si vede.
+
+**Vincoli.**
+
+| | |
+| --- | --- |
+| Build pack | **Dockerfile**. Non Nixpacks: su questi progetti non funziona |
+| Porta interna | **4321** |
+| `PUBLIC_FORM_RELAY_URL` | l'origine del relay, es. `https://moduli.…` — **variabile di build** |
+| `PUBLIC_FORM_RELAY_SITE` | l'id del sito nella config del relay, `vision-ark` — **variabile di build** |
+
+**Il punto che si sbaglia sempre.** Astro incorpora le variabili `PUBLIC_*`
+dentro il bundle JavaScript **durante la compilazione**. Non le legge a runtime.
+Se le imposti come variabili runtime, la build riesce, il sito si vede, tutto
+sembra a posto — e il modulo dice «invio non configurato». Devono essere
+variabili di **build**.
+
+Se mancano del tutto, la build stampa un avviso a tutta larghezza nei log: se lo
+vedi passare, fermati e sistemale prima di andare avanti.
+
+**Verifica, in quest'ordine.**
+
+1. La home risponde `200`, `/privacy/` risponde `200`, e un URL inesistente
+   risponde `404` — non `200` con la home, che sarebbe un errore di
+   configurazione del server.
+2. **L'endpoint è finito nel bundle.** È il controllo che smaschera la variabile
+   messa come runtime: cerca l'host del relay dentro i file JavaScript serviti
+   dal container, sotto `/_astro/`. Se non c'è, la build era cieca.
+3. **Un invio vero dal browser**, non solo con curl: compila il modulo sul sito
+   in produzione e controlla che la mail arrivi. È l'unica prova che tiene
+   insieme sito, relay e provider di posta.
+
+**Cosa non fare.**
+
+- **Non far girare l'immagine con `docker run` a mano**: scavalcheresti proxy e
+  certificato di Coolify, e la risorsa resterebbe fuori dalla sua gestione.
+- **Non toccare i record DNS** senza chiedere. Il dominio del cliente è già in
+  uso e serve posta: un A record spostato a sproposito manda giù il sito
+  esistente, un CNAME sbagliato può rompere le caselle.
+- **Non spostare il DNS prima** che Coolify abbia emesso il certificato: si
+  resta con il sito giù nel frattempo. Prima la risorsa pronta, poi il DNS.
+- **Non commentare la riga di avviso** nel Dockerfile per far tacere i log.
+
+**Diagnosi dei fallimenti probabili.**
+
+| sintomo | causa quasi certa |
+| --- | --- |
+| il modulo dice «invio non configurato» | le `PUBLIC_*` sono runtime invece che build |
+| il modulo dà errore all'invio | il relay non risponde, o l'origine del sito non è fra le `origins` nella sua config |
+| `404` su tutte le pagine tranne la home | la build non ha prodotto `dist/`, o nginx punta alla cartella sbagliata |
+| certificato non emesso | il DNS del dominio non risolve ancora verso questa macchina |
+
+---
+
 ## Cosa manca prima di pubblicare
 
 Nel footer e nella pagina privacy i segnaposto sono marcati in ottone fra
