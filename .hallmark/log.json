@@ -1,0 +1,36 @@
+[
+  {
+    "date": "2026-09-02",
+    "macrostructure": "Split Studio",
+    "theme": "custom",
+    "theme_axes": "light / display-heavy / chromatic-amber (~78°)",
+    "vibe": "travertino, grafite, ottone, spigoli duri",
+    "genre": "editorial (tono brutalist/poster, scelto dal cliente)",
+    "enrichment": "none — 5 render reali del cliente, pagina type-led",
+    "nav": "N7 Brutal slab (bordo 3px · caps tracciate · CTA slab piena)",
+    "footer": "Ft1 Mast-headed (wordmark display 3xl · tagline body · link inline)",
+    "archetypes": {
+      "hero": "H2 Split diptych (ratio 7/5 · foto destra · regola verticale 3px)",
+      "section_head": "S2 Hanging (una colonna, mai tag-a-sinistra)",
+      "features": [
+        "F3 Tabular spec sheet (2 colonne · filetto su ogni riga)",
+        "F4 Step sequence (01/02/03 · vertical stack · nessun connettore)"
+      ],
+      "cta": "C1 Outlined chip (forma slab · spaziosa · freccia)"
+    },
+    "motion": [
+      "reveal (un solo ingresso al carico)",
+      "slab-press",
+      "step-swap"
+    ],
+    "critique": "P5 H5 E4 S5 R5 V5",
+    "slop_test": {
+      "contrast_46_50": "pass — 20/20 coppie verificate sul rendering",
+      "deviazioni_dichiarate": [
+        "gate 40 — l'outlier mono sta in più di 2 slot: porta un unico ruolo (etichette, numerali, testo dei bottoni, didascalie) applicato in modo coerente, mai prosa corrente. Scelta di registro, non terza famiglia di testo.",
+        "nav N7 — il genre editorial vieterebbe la Brutal slab: vince il tono brutalist/poster richiesto dal cliente."
+      ]
+    },
+    "brief": "Vision Ark · impresa edile con studio di progettazione, clienti privati e business, landing con configuratore di preventivo via EmailJS"
+  }
+]

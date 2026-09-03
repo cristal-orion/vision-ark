@@ -1,0 +1,201 @@
+---
+/**
+ * F4 · Step sequence — knobs: numerazione 01/02/03 · layout vertical stack ·
+ * connettore nessuno. Il numerale sta in linea col titolo, non in una
+ * colonna a sinistra: la testa di sezione resta una colonna sola (gate 66).
+ * Il contenuto è realmente ordinale, quindi la numerazione è ammessa.
+ */
+
+const stages = [
+  {
+    n: "01",
+    title: "Progettazione",
+    prose:
+      "Rilievo dello stato di fatto, analisi dei flussi e delle autorizzazioni, poi il progetto. Il render fotorealistico arriva prima del cantiere: le decisioni difficili si prendono guardando un&rsquo;immagine, non un preventivo.",
+    items: [
+      "Rilievo e studio delle planimetrie",
+      "Concept e scelta dei materiali",
+      "Render fotorealistici",
+      "Progettazione tecnica ed esecutiva",
+    ],
+    claim: "Vedi il risultato finale prima che inizino i lavori.",
+  },
+  {
+    n: "02",
+    title: "Lavori edili",
+    prose:
+      "Gestiamo direttamente le fasi operative. Un unico capocantiere risponde del cronoprogramma, coordina le squadre e tiene il filo con i fornitori: non ci sono zone grigie fra imprese.",
+    items: [
+      "Demolizioni e opere murarie",
+      "Impianti elettrici, idraulici, climatizzazione",
+      "Coordinamento squadre e fornitori",
+      "Direzione lavori e sicurezza",
+    ],
+    claim: "Un solo responsabile, dal primo giorno alla consegna.",
+  },
+  {
+    n: "03",
+    title: "Materiali e finiture",
+    prose:
+      "Selezioniamo materiali che devono resistere all&rsquo;uso reale &mdash; una camera d&rsquo;albergo vede cento ospiti l&rsquo;anno, un bagno di casa ci vive dentro vent&rsquo;anni. La finitura si sceglie per durata, non solo per foto.",
+    items: [
+      "Rivestimenti e pavimentazioni",
+      "Ceramiche e arredo bagno",
+      "Materiali tecnici a uso intensivo",
+      "Arredo su misura e complementi",
+    ],
+    claim: "Campionature fisiche in mano, prima dell&rsquo;ordine.",
+  },
+];
+---
+
+<section class="metodo on-ink" id="metodo">
+  <div class="shell">
+    <div class="head metodo__head">
+      <h2 class="head__title">Come lavoriamo</h2>
+      <p class="head__note">
+        Tre fasi, nell&rsquo;ordine. Nessuna delle tre passa a un&rsquo;altra
+        azienda.
+      </p>
+    </div>
+
+    <ol class="metodo__stages">
+      {
+        stages.map((stage) => (
+          <li class="stage">
+            <h3 class="stage__heading">
+              <span class="stage__n" aria-hidden="true">
+                {stage.n}
+              </span>
+              <span class="stage__title">{stage.title}</span>
+            </h3>
+
+            <div class="stage__body">
+              <p class="stage__prose" set:html={stage.prose} />
+
+              <div class="stage__aside">
+                <ul class="stage__list">
+                  {stage.items.map((item) => (
+                    <li class="stage__item">{item}</li>
+                  ))}
+                </ul>
+                <p class="stage__claim" set:html={stage.claim} />
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .metodo {
+    padding-block: clamp(var(--space-2xl), 9vw, var(--space-4xl));
+  }
+
+  .metodo__head .head__title {
+    border-block-end: var(--rule-heavy) solid var(--color-accent);
+    padding-block-end: var(--space-md);
+  }
+
+  .metodo__stages {
+    display: grid;
+  }
+
+  .stage {
+    padding-block: clamp(var(--space-xl), 4vw, var(--space-2xl));
+    border-block-start: var(--rule-slab) solid var(--color-on-ink-rule);
+  }
+
+  .stage:first-child {
+    border-block-start: 0;
+    padding-block-start: 0;
+  }
+
+  .stage__heading {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(var(--space-md), 2vw, var(--space-xl));
+    margin-block-end: var(--space-lg);
+  }
+
+  .stage__n {
+    flex: none;
+    font-family: var(--font-outlier);
+    font-weight: 500;
+    font-size: clamp(var(--text-lg), 2vw + 0.5rem, var(--text-2xl));
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+  }
+
+  .stage__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(var(--text-xl), 3.6vw + 0.5rem, var(--text-3xl));
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .stage__body {
+    display: grid;
+    /* colonne disuguali, la prosa più larga dell'elenco */
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(var(--space-lg), 4vw, var(--space-3xl));
+    align-items: start;
+  }
+
+  .stage__prose {
+    /* stessa scala della prosa dei pannelli Casa/Attività */
+    font-size: clamp(var(--text-base), 0.7vw + 0.85rem, var(--text-md));
+    line-height: 1.45;
+    max-width: 46ch;
+    color: var(--color-on-ink-2);
+  }
+
+  .stage__aside {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .stage__list {
+    display: grid;
+  }
+
+  .stage__item {
+    padding-block: var(--space-sm);
+    border-block-end: var(--rule-hair) solid var(--color-on-ink-rule);
+    font-size: var(--text-base);
+    color: var(--color-on-ink);
+  }
+
+  .stage__claim {
+    font-family: var(--font-display);
+    font-weight: 300;
+    /* resta un gradino sopra l'elenco, così la gerarchia tiene */
+    font-size: clamp(var(--text-md), 0.9vw + 0.95rem, var(--text-lg));
+    line-height: 1.25;
+    max-width: 24ch;
+    color: var(--color-on-ink);
+  }
+
+  @media (width < 60rem) {
+    .stage__body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+
+  @media (width < 40rem) {
+    .stage__heading {
+      /* il numerale scende sopra al titolo, resta nella stessa colonna */
+      flex-direction: column;
+      align-items: start;
+      gap: var(--space-2xs);
+    }
+  }
+</style>

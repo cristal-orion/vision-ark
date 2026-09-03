@@ -1,0 +1,49 @@
+---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+
+/**
+ * `theme-color` colora la barra del browser su mobile e vive in un attributo
+ * HTML: non può leggere una custom property. È l'unico colore della codebase
+ * scritto a mano, ed è l'equivalente sRGB di `--color-paper`
+ * (`oklch(96.5% 0.008 82)`). Se cambia la carta in tokens.css, cambia qui.
+ */
+const themeColor = "#f6f3ee";
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content={themeColor} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:site_name" content="Vision Ark" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,167 @@
+---
+/**
+ * N7 · Brutal slab — bordo inferiore da 3px, wordmark in caps tracciate,
+ * riga di link maiuscoli, CTA a lastra piena. Nessuna ombra, nessun raggio.
+ * Knobs: bordo 3px · letter-spacing tracked uppercase · CTA filled slab.
+ *
+ * Il genre editorial di default vorrebbe N6 masthead: qui vince il tono
+ * brutalist/poster scelto dal cliente, dichiarato nello stamp dei token.
+ */
+
+const links = [
+  { href: "/#studio", label: "Studio" },
+  { href: "/#per-chi", label: "Per chi" },
+  { href: "/#servizi", label: "Servizi" },
+  { href: "/#metodo", label: "Metodo" },
+];
+---
+
+<header class="nav">
+  <div class="shell nav__inner">
+    <a class="nav__wordmark" href="/#top" aria-label="Vision Ark, torna in cima">
+      <span class="nav__mark">Vision Ark</span>
+      <span class="nav__tagline">interior &amp; more</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Sezioni della pagina">
+      {
+        links.map((link) => (
+          <a class="nav__link" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a class="btn btn--accent nav__cta" href="/#preventivo">
+      Preventivo
+      <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-sticky);
+    background: var(--color-paper);
+    border-block-end: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    min-height: 4.5rem;
+    padding-block: var(--space-sm);
+  }
+
+  .nav__wordmark {
+    display: grid;
+    gap: 0.1em;
+    margin-inline-end: auto;
+  }
+
+  .nav__mark {
+    font-family: var(--font-display);
+    /* 200 accanto a 800 dei titoli: il contrasto di peso è la firma */
+    font-weight: 200;
+    /* Il pavimento resta a --text-md: a 375px il marchio con 0.2em di
+       spaziatura sta in riga con la CTA solo a quella misura. Da lì cresce. */
+    font-size: clamp(var(--text-md), 1.1vw + 0.9rem, var(--text-xl));
+    line-height: 1;
+    letter-spacing: var(--tracking-wordmark);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .nav__tagline {
+    font-family: var(--font-outlier);
+    /* cresce col marchio, così il lockup resta in proporzione */
+    font-size: clamp(var(--text-xs), 0.2vw + 0.58rem, var(--text-sm));
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .nav__links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .nav__link {
+    position: relative;
+    padding-block: var(--space-2xs);
+    font-family: var(--font-outlier);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-ink-2);
+    transition: color var(--dur-micro) var(--ease-out);
+  }
+
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    height: var(--rule-slab);
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-short) var(--ease-out);
+  }
+
+  .nav__link:hover,
+  .nav__link.is-hover {
+    color: var(--color-ink);
+  }
+
+  .nav__link:hover::after,
+  .nav__link.is-hover::after,
+  .nav__link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .nav__link:active,
+  .nav__link.is-active {
+    transform: translateY(1px);
+  }
+
+  /* Sotto i 60rem la riga di link esce: la navigazione vive negli ancoraggi
+     delle sezioni, la CTA resta. Meglio togliere che mandare a capo (gate 59). */
+  @media (width < 60rem) {
+    .nav__links {
+      display: none;
+    }
+  }
+
+  /* Sotto i 26rem marchio e CTA non stanno in riga alla misura piena:
+     a 320px la CTA sfondava di 53px, invisibile perché `overflow-x: clip`
+     taglia senza generare scrollbar. Qui il lockup si compatta. */
+  @media (width < 26rem) {
+    .nav__tagline {
+      display: none;
+    }
+
+    .nav__inner {
+      gap: var(--space-sm);
+    }
+
+    .nav__mark {
+      letter-spacing: 0.08em;
+    }
+
+    .nav__cta {
+      padding-inline: var(--space-sm);
+    }
+
+    /* la freccia è ornamento: la prima cosa che si sacrifica */
+    .nav__cta .btn__arrow {
+      display: none;
+    }
+  }
+</style>

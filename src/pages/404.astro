@@ -1,0 +1,92 @@
+---
+/**
+ * 404. Astro la costruisce come `404.html` e nginx la serve con lo stato 404
+ * vero — non rimandando alla home, che restituirebbe la home con stato 404 e
+ * confonderebbe sia il visitatore sia i motori di ricerca.
+ */
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base
+  title="Pagina non trovata — Vision Ark"
+  description="La pagina cercata non esiste. Torna alla home o richiedi un preventivo."
+>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <Nav />
+
+  <main id="contenuto" class="lost section">
+    <div class="shell lost__shell">
+      <p class="lost__code" aria-hidden="true">404</p>
+
+      <h1 class="display display--s lost__title">
+        <span class="hero__line">Questa pagina</span>
+        <span class="slab">non c&rsquo;&egrave;</span>
+      </h1>
+
+      <p class="lede lost__note">
+        Forse l&rsquo;indirizzo &egrave; cambiato, forse c&rsquo;&egrave; un
+        errore di battitura. Il resto del sito &egrave; al suo posto.
+      </p>
+
+      <div class="lost__actions">
+        <a class="btn" href="/">
+          Torna alla home
+          <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="btn btn--ghost" href="/#preventivo">Richiedi un preventivo</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .lost {
+    padding-block: clamp(var(--space-2xl), 10vw, var(--space-4xl));
+  }
+
+  .lost__shell {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .lost__code {
+    font-family: var(--font-outlier);
+    font-size: var(--text-md);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-label);
+    color: var(--color-accent-text);
+  }
+
+  .lost__title {
+    max-width: 20ch;
+  }
+
+  .lost__title .hero__line {
+    display: block;
+  }
+
+  .lost__note {
+    max-width: 42ch;
+  }
+
+  .lost__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-xs);
+  }
+
+  @media (width < 40rem) {
+    .lost__actions .btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+</style>

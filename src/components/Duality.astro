@@ -1,0 +1,205 @@
+---
+/**
+ * Il cuore di Split Studio: due righe diptych che alternano il lato.
+ * Casa → foto a sinistra, testo a destra. Attività → l'opposto.
+ * Divisori: filetti a lastra da 3px fra le metà e fra le righe.
+ */
+import { Image } from "astro:assets";
+import bagno from "../assets/img/03-bagno.png";
+import reception from "../assets/img/01-reception.png";
+
+const panels = [
+  {
+    id: "casa",
+    title: "Casa",
+    image: bagno,
+    alt: "Bagno residenziale: mobile a doghe in rovere, lavabo d'appoggio, rubinetteria in ottone, doccia a filo pavimento.",
+    caption: "Bagno padronale",
+    flip: false,
+    prose:
+      "Appartamenti, ville, case indipendenti. Si ristruttura tutto o si interviene su un ambiente alla volta, con un cronoprogramma che tiene conto del fatto che dentro ci abita qualcuno.",
+    items: [
+      "Ristrutturazioni complete",
+      "Cucine e zone giorno",
+      "Bagni e zone lavanderia",
+      "Camere e cabine armadio",
+      "Impianti, climatizzazione, domotica",
+    ],
+  },
+  {
+    id: "attivita",
+    title: "Attività",
+    image: reception,
+    alt: "Reception d'albergo: bancone in pietra scolpita, retroilluminazione calda, boiserie verticale in legno scuro.",
+    caption: "Hall e reception",
+    flip: true,
+    prose:
+      "Hotel, B&B, ristoranti, negozi, uffici. Qui il vincolo non è l'abitabilità ma il fatturato: si lavora per fasi, fuori stagione o a struttura aperta, con le camere che restano vendibili.",
+    items: [
+      "Hall, reception e aree comuni",
+      "Camere e suite",
+      "Bagni e corridoi",
+      "Sale colazione e ristorazione",
+      "Spazi relax e wellness",
+      "Cantieri per fasi, a struttura aperta",
+    ],
+  },
+];
+---
+
+<section class="duality" id="per-chi">
+  <div class="shell">
+    <div class="head">
+      <h2 class="head__title">Due modi di lavorare, un solo standard</h2>
+      <p class="head__note">
+        Lo standard di cantiere non cambia. Cambiano i vincoli: una casa si
+        vive mentre la si ristruttura, un&rsquo;attivit&agrave; deve continuare
+        a incassare.
+      </p>
+    </div>
+  </div>
+
+  <div class="duality__rows">
+    {
+      panels.map((panel) => (
+        <article class="panel" class:list={[{ "panel--flip": panel.flip }]} id={panel.id}>
+          <figure class="figure panel__figure">
+            <Image
+              src={panel.image}
+              alt={panel.alt}
+              widths={[520, 840, 1200]}
+              sizes="(width < 60rem) 100vw, 46vw"
+              loading="lazy"
+            />
+            <figcaption class="figure__caption">{panel.caption}</figcaption>
+          </figure>
+
+          <div class="panel__body">
+            <h3 class="panel__title">{panel.title}</h3>
+            <p class="panel__prose">{panel.prose}</p>
+            <ul class="panel__list">
+              {panel.items.map((item) => (
+                <li class="panel__item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .duality {
+    padding-block-start: clamp(var(--space-2xl), 9vw, var(--space-4xl));
+  }
+
+  .duality__rows {
+    border-block-start: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border-block-end: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .panel__figure {
+    grid-column: 1;
+    grid-row: 1;
+    aspect-ratio: 4 / 3;
+    border-inline-end: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .panel__body {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    align-content: center;
+    gap: var(--space-md);
+    padding: clamp(var(--space-lg), 4vw, var(--space-2xl));
+    /* allinea alla gabbia sul lato che tocca il bordo pagina */
+    padding-inline-end: max(
+      clamp(var(--space-lg), 4vw, var(--space-2xl)),
+      calc((100% - var(--page-max) / 2) + var(--gutter))
+    );
+  }
+
+  /* Riga specchiata: la foto passa a destra, il testo a sinistra. */
+  .panel--flip .panel__figure {
+    grid-column: 2;
+    border-inline-end: 0;
+    border-inline-start: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .panel--flip .panel__body {
+    grid-column: 1;
+    padding-inline-end: clamp(var(--space-lg), 4vw, var(--space-2xl));
+    padding-inline-start: max(
+      clamp(var(--space-lg), 4vw, var(--space-2xl)),
+      calc((100% - var(--page-max) / 2) + var(--gutter))
+    );
+  }
+
+  .panel__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(var(--text-2xl), 4.4vw + 0.5rem, var(--text-4xl));
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .panel__prose {
+    /* il render accanto è grande: il testo deve reggere il confronto */
+    font-size: clamp(var(--text-base), 0.7vw + 0.85rem, var(--text-md));
+    line-height: 1.45;
+    max-width: 46ch;
+    color: var(--color-ink-2);
+  }
+
+  .panel__list {
+    display: grid;
+    gap: 0;
+    margin-block-start: var(--space-xs);
+    max-width: 46ch;
+  }
+
+  .panel__item {
+    padding-block: var(--space-sm);
+    border-block-start: var(--rule-hair) solid var(--color-rule);
+    font-size: var(--text-base);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .panel__item:last-child {
+    border-block-end: var(--rule-hair) solid var(--color-rule);
+  }
+
+  @media (width < 60rem) {
+    .panel,
+    .panel--flip {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .panel__figure,
+    .panel--flip .panel__figure {
+      grid-column: 1;
+      grid-row: 1;
+      aspect-ratio: 16 / 10;
+      border-inline: 0;
+      border-block-end: var(--rule-slab) solid var(--color-ink);
+    }
+
+    .panel__body,
+    .panel--flip .panel__body {
+      grid-column: 1;
+      grid-row: 2;
+      padding-inline: var(--gutter);
+      padding-block: var(--space-xl);
+    }
+  }
+</style>

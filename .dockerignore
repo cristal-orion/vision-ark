@@ -1,0 +1,15 @@
+node_modules
+dist
+.astro
+.nixpacks
+.git
+.gitignore
+.env
+.env.*
+.DS_Store
+.vscode
+.idea
+*.md
+*.pdf
+immagini-interni
+.hallmark

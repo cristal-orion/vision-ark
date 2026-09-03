@@ -1,0 +1,41 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# Editor
+.vscode/
+.idea/
+
+# Registro delle scelte di design: si versiona, è piccolo e serve ai run futuri
+!.hallmark/
+
+# ── Materiali sorgente, non necessari alla build ─────────────────────────────
+# I 5 render sono già committati in src/assets/img/ (byte identici): questa
+# cartella è la copia da cui li ho presi. Astro usa quella in src/.
+immagini-interni/
+
+# La brochure del cliente: 12 MB di binario che git non sa diffare e che ogni
+# clone si porterebbe dietro per sempre. Non serve alla build.
+# Se la vuoi versionata, togli questa riga — è una scelta, non un vincolo.
+*.pdf

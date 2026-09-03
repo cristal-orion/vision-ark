@@ -1,0 +1,68 @@
+---
+/**
+ * Fascia piena in grafite. Il divisore fra le sezioni è un blocco di colore
+ * a tutta pagina, non un filetto: è il vocabolario del poster.
+ * Diptych testo/prosa — la seconda variante della coppia Split Studio.
+ */
+---
+
+<section class="manifesto on-ink" id="studio">
+  <div class="shell manifesto__inner">
+    <h2 class="display display--s manifesto__claim">
+      <span class="display__lead">Progettiamo.</span>
+      Costruiamo. Trasformiamo spazi in esperienze.
+    </h2>
+
+    <div class="prose manifesto__prose">
+      <p>
+        In un immobile ogni dettaglio si vede e si sente: un&rsquo;altezza
+        sbagliata, un punto luce fuori posto, un rivestimento che dopo due anni
+        cede. <strong>Vision Ark</strong> nasce per tenere insieme le due met&agrave;
+        del lavoro &mdash; il progetto e il cantiere &mdash; senza passaggi di
+        mano fra studio e impresa.
+      </p>
+      <p>
+        Rilievo, concept, render, opere murarie, impianti, finiture, consegna.
+        Chi disegna lo spazio &egrave; la stessa squadra che poi lo costruisce:
+        &egrave; per questo che quello che vedi nel render &egrave; quello che
+        ti ritrovi in casa.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    padding-block: clamp(var(--space-2xl), 8vw, var(--space-3xl));
+  }
+
+  .manifesto__inner {
+    display: grid;
+    /* colonne disuguali: 1.35 a 1, il claim domina la prosa */
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(var(--space-xl), 5vw, var(--space-3xl));
+    align-items: start;
+  }
+
+  .manifesto__claim {
+    max-width: 24ch;
+  }
+
+  .manifesto__prose {
+    /* la prosa scende di un gradino rispetto al claim: rompe l'allineamento
+       alto e dà un asse di lettura in diagonale */
+    padding-block-start: 0.6em;
+    border-block-start: var(--rule-slab) solid var(--color-accent);
+  }
+
+  @media (width < 60rem) {
+    .manifesto__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .manifesto__claim {
+      max-width: 20ch;
+    }
+  }
+</style>

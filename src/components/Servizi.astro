@@ -1,0 +1,156 @@
+---
+/**
+ * F3 · Tabular spec sheet — knobs: 2 colonne (voce / dettaglio) ·
+ * filetto su ogni riga · nessun box. Dentro un diptych con la foto a
+ * sinistra, che continua l'alternanza dei lati di Split Studio.
+ */
+import { Image } from "astro:assets";
+import suite from "../assets/img/02-suite.png";
+
+const sheets = [
+  {
+    title: "Interni",
+    rows: [
+      ["Opere murarie", "Demolizioni, tracciamenti, nuove partizioni, cartongesso."],
+      ["Pavimenti e rivestimenti", "Grandi lastre, gres, parquet, resine, pietra naturale."],
+      ["Bagni", "Ceramiche, sanitari sospesi, docce a filo, rubinetteria."],
+      ["Impianti", "Elettrico, idraulico, climatizzazione, domotica."],
+      ["Falegnameria", "Porte, boiserie, armadiature e arredo su misura."],
+      ["Illuminazione", "Studio dei punti luce, profili led, luce d’accento."],
+    ],
+  },
+  {
+    title: "Esterni",
+    rows: [
+      ["Facciate", "Rasature, cappotto, tinteggiature, rivestimenti."],
+      ["Ingressi", "Portali, pensiline, insegne: il primo impatto."],
+      ["Terrazze e rooftop", "Impermeabilizzazioni, pavimentazioni, arredo esterno."],
+      ["Aree relax outdoor", "Lounge, pergole, zone d’ombra, verde."],
+      ["Percorsi e luce", "Camminamenti, drenaggi, illuminazione paesaggistica."],
+    ],
+  },
+];
+---
+
+<section class="servizi section" id="servizi">
+  <div class="shell">
+    <div class="head">
+      <h2 class="head__title">Cosa mettiamo in cantiere</h2>
+      <p class="head__note">
+        Gestiamo direttamente le lavorazioni e coordiniamo le squadre
+        specializzate. Un solo contratto, un solo responsabile, un solo
+        cronoprogramma.
+      </p>
+    </div>
+
+    <div class="servizi__split">
+      <figure class="figure servizi__figure">
+        <Image
+          src={suite}
+          alt="Camera con testata imbottita, carta da parati botanica, applique in ottone e parquet a spina."
+          widths={[480, 760, 1100]}
+          sizes="(width < 60rem) 100vw, 38vw"
+          loading="lazy"
+        />
+        <figcaption class="figure__caption">Camera &mdash; finiture</figcaption>
+      </figure>
+
+      <div class="servizi__sheets">
+        {
+          sheets.map((sheet) => (
+            <section class="sheet">
+              <h3 class="sheet__title">{sheet.title}</h3>
+              <dl class="sheet__rows">
+                {sheet.rows.map(([name, detail]) => (
+                  <div class="sheet__row">
+                    <dt class="sheet__name">{name}</dt>
+                    <dd class="sheet__detail">{detail}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .servizi__split {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: clamp(var(--space-lg), 4vw, var(--space-2xl));
+    align-items: start;
+  }
+
+  .servizi__figure {
+    position: sticky;
+    inset-block-start: 7rem;
+    aspect-ratio: 3 / 4;
+    border: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .servizi__sheets {
+    display: grid;
+    gap: clamp(var(--space-xl), 4vw, var(--space-2xl));
+  }
+
+  .sheet__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-xl);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    padding-block-end: var(--space-sm);
+    border-block-end: var(--rule-heavy) solid var(--color-ink);
+  }
+
+  .sheet__rows {
+    display: grid;
+  }
+
+  .sheet__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+    gap: var(--space-md);
+    align-items: baseline;
+    padding-block: var(--space-sm);
+    border-block-end: var(--rule-hair) solid var(--color-rule);
+  }
+
+  .sheet__name {
+    font-weight: 600;
+    font-size: var(--text-base);
+    letter-spacing: 0.01em;
+  }
+
+  .sheet__detail {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-muted);
+  }
+
+  @media (width < 60rem) {
+    .servizi__split {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .servizi__figure {
+      /* relative, non static: `static` annullerebbe il contenitore di
+         riferimento di .figure e la didascalia assoluta scapperebbe via */
+      position: relative;
+      inset-block-start: auto;
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (width < 40rem) {
+    /* la scheda tecnica diventa verticale: voce sopra, dettaglio sotto */
+    .sheet__row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xs);
+    }
+  }
+</style>

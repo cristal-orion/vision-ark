@@ -1,0 +1,153 @@
+---
+/**
+ * Informativa privacy — IMPIANTO, NON TESTO LEGALE.
+ *
+ * Il form raccoglie dati personali, quindi il link nel footer deve puntare a
+ * qualcosa: questa è l'ossatura con i campi da compilare marcati .tbd.
+ * Prima di pubblicare va completata (e fatta vedere a chi di dovere): i dati
+ * del titolare, la base giuridica e i tempi di conservazione non si inventano.
+ */
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const sections = [
+  {
+    title: "Titolare del trattamento",
+    body: "Vision Ark, [ragione sociale completa], con sede in [indirizzo], P. IVA [numero]. Per ogni richiesta: [email di contatto].",
+  },
+  {
+    title: "Quali dati raccogliamo",
+    body: "Solo quelli che inserisci nel modulo di richiesta preventivo: tipo di immobile, ambienti d’interesse, nome e cognome, email, telefono, indirizzo dell’immobile e le note che scrivi. Non usiamo cookie di profilazione e non ci sono strumenti di tracciamento pubblicitario su questo sito.",
+  },
+  {
+    title: "Perché li trattiamo",
+    body: "Per rispondere alla tua richiesta e, se il lavoro va avanti, per formulare un preventivo e gestire il rapporto. La base giuridica è il tuo consenso per il primo contatto e l’esecuzione di un contratto o di trattative precontrattuali per il resto.",
+  },
+  {
+    title: "A chi li comunichiamo",
+    body: "Il modulo viene recapitato attraverso un nostro server e inviato per posta elettronica tramite Brevo (Sendinblue SAS, Francia — server nell’Unione Europea), che agisce come responsabile del trattamento. Oltre a questo, i dati possono essere visti dai nostri tecnici e collaboratori coinvolti nel progetto. Nessuna cessione a terzi per finalità commerciali.",
+  },
+  {
+    title: "Per quanto tempo",
+    body: "[Da definire] mesi per le richieste che non diventano un lavoro; per la durata del rapporto più i termini di legge nei casi in cui si arrivi al contratto.",
+  },
+  {
+    title: "I tuoi diritti",
+    body: "Puoi chiedere in ogni momento accesso, rettifica, cancellazione, limitazione e portabilità dei dati, e revocare il consenso. Scrivi a [email di contatto]: rispondiamo entro trenta giorni. Puoi anche rivolgerti al Garante per la protezione dei dati personali.",
+  },
+];
+
+const updated = "[data ultimo aggiornamento]";
+---
+
+<Base
+  title="Informativa privacy — Vision Ark"
+  description="Come Vision Ark tratta i dati personali raccolti attraverso il modulo di richiesta preventivo."
+>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <Nav />
+
+  <main id="contenuto" class="legal section">
+    <div class="shell legal__shell">
+      <h1 class="legal__title">Informativa privacy</h1>
+      <p class="legal__meta">Ultimo aggiornamento: {updated}</p>
+
+      <p class="legal__draft">
+        Questa pagina &egrave; una bozza strutturale. Le voci fra parentesi
+        quadre vanno completate prima della pubblicazione.
+      </p>
+
+      {
+        sections.map((section) => (
+          <section class="legal__block">
+            <h2 class="legal__heading">{section.title}</h2>
+            <p class="legal__body">{section.body}</p>
+          </section>
+        ))
+      }
+
+      <p class="legal__back">
+        <a class="legal__link" href="/#preventivo">
+          <span aria-hidden="true">&larr;</span> Torna alla richiesta di preventivo
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .legal__shell {
+    max-width: 52rem;
+  }
+
+  .legal__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(var(--text-2xl), 5vw + 0.4rem, var(--text-4xl));
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .legal__meta {
+    margin-block-start: var(--space-sm);
+    font-family: var(--font-outlier);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .legal__draft {
+    margin-block-start: var(--space-lg);
+    padding: var(--space-md);
+    border-inline-start: var(--rule-heavy) solid var(--color-accent);
+    background: var(--color-paper-2);
+    font-size: var(--text-sm);
+    max-width: 60ch;
+  }
+
+  .legal__block {
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--rule-hair) solid var(--color-rule);
+  }
+
+  .legal__heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-md);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .legal__body {
+    margin-block-start: var(--space-sm);
+    max-width: var(--measure);
+    color: var(--color-ink-2);
+  }
+
+  .legal__back {
+    margin-block-start: var(--space-2xl);
+  }
+
+  .legal__link {
+    font-family: var(--font-outlier);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    border-block-end: var(--rule-slab) solid var(--color-accent);
+    padding-block-end: var(--space-3xs);
+  }
+
+  .legal__link:hover {
+    border-block-end-color: var(--color-ink);
+  }
+</style>

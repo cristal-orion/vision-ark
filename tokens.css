@@ -1,0 +1,124 @@
+/* Hallmark · macrostructure: Split Studio · H2 hero knobs: ratio=7/5, right=photo, divider=vertical-rule
+ * genre: editorial (tone: brutalist/poster, user-chosen) · nav: N7 Brutal slab · footer: Ft1 Mast-headed
+ * theme: custom · vibe: "travertino, grafite, ottone, spigoli duri"
+ * paper: oklch(96.5% 0.008 82) · accent: oklch(66% 0.13 78)
+ * display: Bricolage Grotesque · body: Geist · outlier: Geist Mono
+ * axes: light / display-heavy / chromatic-amber (~78°)
+ * studied: no · context: user-provided · v1.0.0
+ * contrast: pass (46–50) · nav: N7 · footer: Ft1 · slop: pass (51–55)
+ * Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V5
+ *
+ * VISION ARK — design tokens. Ogni colore e ogni font della pagina passa da qui.
+ * Nessun valore inline nei fogli di stile: se serve un valore nuovo, si aggiunge un token.
+ */
+
+:root {
+  /* ─── Palette · derivata dalla brochure ──────────────────────────────────
+     Travertino (carta) → grafite (inchiostro) → ottone (accento).
+     Tutti i neutri sono tinti verso l'ottone (hue ~80): niente grigi a chroma 0. */
+
+  --color-paper: oklch(96.5% 0.008 82); /* travertino chiaro — fondo pagina    */
+  --color-paper-2: oklch(93.5% 0.011 82); /* sabbia — un gradino di elevazione */
+  --color-paper-3: oklch(90% 0.014 80); /* sabbia scura — pannelli, campi form */
+
+  --color-ink: oklch(19% 0.012 80); /* grafite — testo e fasce piene          */
+  --color-ink-2: oklch(26% 0.012 80); /* grafite secondaria                    */
+
+  --color-rule: oklch(80% 0.012 82); /* filetto principale                     */
+  --color-rule-2: oklch(86% 0.01 82); /* filetto secondario                    */
+  --color-muted: oklch(49% 0.012 80); /* testo de-enfatizzato — ≥4.5:1 su tutte e tre le carte */
+  --color-neutral: oklch(58% 0.011 82); /* la prima parola in grigio della brochure — solo a corpo display (≥3:1) */
+
+  --color-accent: oklch(66% 0.13 78); /* ottone — fill, filetti, stati attivi  */
+  --color-accent-2: oklch(73% 0.13 78); /* ottone chiaro — hover su fill: schiarire
+                                           tiene il testo grafite a 7.6:1, scurire
+                                           lo portava sotto soglia */
+  /* L'ottone a L66 su carta L96.5 non arriva a 3:1: per l'ottone *come testo*
+     su fondo chiaro serve questa versione scurita (≈5:1). Mai per il body. */
+  --color-accent-text: oklch(44% 0.13 74);
+  --color-accent-ink: oklch(19% 0.012 80); /* testo sopra l'ottone (L>50 → ink) */
+  --color-focus: oklch(62% 0.19 78); /* anello di focus, chroma alzata         */
+
+  /* Inversi — per le fasce piene in grafite */
+  --color-on-ink: oklch(95% 0.008 82);
+  --color-on-ink-2: oklch(78% 0.01 80);
+  --color-on-ink-muted: oklch(62% 0.01 80);
+  --color-on-ink-rule: oklch(32% 0.012 80);
+  --color-on-ink-raise: oklch(25% 0.012 80); /* elevazione su fondo scuro = più chiaro, non ombra */
+
+  /* Stati */
+  --color-danger: oklch(52% 0.17 28);
+  --color-danger-soft: oklch(93% 0.03 28);
+  --color-success: oklch(50% 0.11 150);
+
+  /* Velo sui render, per tenere leggibile il testo in negativo */
+  --color-scrim: oklch(19% 0.012 80 / 0.55);
+  --color-scrim-strong: oklch(19% 0.012 80 / 0.78);
+
+  /* ─── Tipografia ──────────────────────────────────────────────────────── */
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-body: "Geist Variable", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Geist Mono Variable", "Geist Mono", ui-monospace, monospace;
+
+  /* Scala 1.25 — terza maggiore, base 16px */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  /* Display-heavy: tetto 5.75rem. Pavimento basso perché "PROGETTAZIONE"
+     è una parola da 13 caratteri e a 375px deve stare dentro la colonna. */
+  --text-display: clamp(2.25rem, 6.4vw + 0.4rem, 5.75rem);
+  --text-display-s: clamp(1.9rem, 4.4vw + 0.5rem, 3.8147rem);
+
+  --leading-display: 1.02; /* pavimento per i titoli tutto-maiuscolo (gate 67) */
+  --leading-tight: 1.16;
+  --leading-body: 1.58;
+
+  --tracking-display: -0.03em;
+  --tracking-wordmark: 0.2em;
+  --tracking-label: 0.12em;
+
+  /* ─── Spazio · base 4pt ───────────────────────────────────────────────── */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --measure: 62ch;
+  --page-max: 84rem;
+
+  /* ─── Filetti e bordi · il brutalismo vive qui ────────────────────────── */
+  --rule-hair: 1px;
+  --rule-slab: 3px; /* nav, bordi delle card selezionabili */
+  --rule-heavy: 6px; /* sottolineature dei titoli */
+  --radius-none: 0; /* spigoli duri: nessun raggio in tutta la pagina */
+
+  /* ─── Motion ──────────────────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  /* ─── Z-index · sei livelli nominati ──────────────────────────────────── */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

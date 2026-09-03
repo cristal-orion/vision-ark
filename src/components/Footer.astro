@@ -1,0 +1,208 @@
+---
+/**
+ * Ft1 · Mast-headed — knobs: wordmark display 3xl · tagline in body ·
+ * riga di link inline. Chiude la pagina come una testata, non come una
+ * mappa del sito che non esiste.
+ *
+ * I valori marcati .tbd sono segnaposto: vanno sostituiti prima di pubblicare.
+ */
+
+const links = [
+  { href: "/#studio", label: "Studio" },
+  { href: "/#per-chi", label: "Per chi" },
+  { href: "/#servizi", label: "Servizi" },
+  { href: "/#metodo", label: "Metodo" },
+  { href: "/#preventivo", label: "Preventivo" },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="foot on-ink">
+  <div class="shell">
+    <div class="foot__mast">
+      <div class="foot__brand">
+        <p class="foot__wordmark">Vision Ark</p>
+        <p class="foot__tagline">interior &amp; more</p>
+      </div>
+
+      <p class="foot__line">
+        Progettazione, edilizia e interior design. Chiavi in mano, per case e
+        attivit&agrave;.
+      </p>
+    </div>
+
+    <div class="foot__cols">
+      <nav class="foot__nav" aria-label="Sezioni della pagina">
+        {
+          links.map((link) => (
+            <a class="foot__link" href={link.href}>
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <address class="foot__contact">
+        <a class="foot__contact-link" href="mailto:info@visionark.it">info@visionark.it</a>
+        <span class="tbd">Telefono da inserire</span>
+        <span class="tbd">Sede da inserire</span>
+      </address>
+    </div>
+
+    <div class="foot__legal">
+      <p>&copy; {year} Vision Ark. <span class="tbd">P. IVA da inserire</span></p>
+      <a class="foot__legal-link" href="/privacy">Informativa privacy</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    padding-block: clamp(var(--space-2xl), 7vw, var(--space-3xl))
+      clamp(var(--space-lg), 3vw, var(--space-xl));
+    border-block-start: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .foot__mast {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    gap: var(--space-lg) clamp(var(--space-xl), 6vw, var(--space-4xl));
+    align-items: end;
+    padding-block-end: var(--space-xl);
+    border-block-end: var(--rule-slab) solid var(--color-accent);
+  }
+
+  .foot__wordmark {
+    font-family: var(--font-display);
+    /* peso 200 contro l'800 dei titoli: la firma tipografica del marchio */
+    font-weight: 200;
+    font-size: clamp(var(--text-2xl), 5.5vw + 0.4rem, var(--text-4xl));
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .foot__tagline {
+    margin-block-start: var(--space-xs);
+    font-family: var(--font-outlier);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-on-ink-muted);
+  }
+
+  .foot__line {
+    max-width: 32ch;
+    padding-block-end: var(--space-xs);
+    color: var(--color-on-ink-2);
+  }
+
+  .foot__cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+    gap: var(--space-lg) clamp(var(--space-xl), 6vw, var(--space-4xl));
+    padding-block: var(--space-xl);
+  }
+
+  .foot__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-lg);
+    align-content: start;
+  }
+
+  .foot__link {
+    font-family: var(--font-outlier);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-on-ink-2);
+    border-block-end: var(--rule-hair) solid transparent;
+    transition:
+      color var(--dur-micro) var(--ease-out),
+      border-color var(--dur-micro) var(--ease-out);
+  }
+
+  .foot__link:hover,
+  .foot__link.is-hover {
+    color: var(--color-on-ink);
+    border-block-end-color: var(--color-accent);
+  }
+
+  .foot__link:active,
+  .foot__link.is-active {
+    transform: translateY(1px);
+  }
+
+  .foot__contact {
+    display: grid;
+    gap: var(--space-2xs);
+    font-style: normal;
+    font-size: var(--text-sm);
+    text-align: end;
+    color: var(--color-on-ink-2);
+  }
+
+  .foot__contact-link {
+    color: var(--color-on-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-accent);
+  }
+
+  .foot__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-sm) var(--space-lg);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--rule-hair) solid var(--color-on-ink-rule);
+    font-size: var(--text-xs);
+    color: var(--color-on-ink-muted);
+  }
+
+  .foot__legal-link {
+    white-space: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .foot__legal-link:hover {
+    color: var(--color-on-ink);
+  }
+
+  .foot__legal-link:active {
+    transform: translateY(1px);
+  }
+
+  /* Segnaposto: impossibili da pubblicare per distrazione. */
+  .tbd {
+    color: var(--color-accent);
+    border-block-end: var(--rule-hair) dotted currentColor;
+  }
+
+  .tbd::before {
+    content: "[ ";
+  }
+
+  .tbd::after {
+    content: " ]";
+  }
+
+  @media (width < 48rem) {
+    .foot__mast,
+    .foot__cols {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .foot__contact {
+      text-align: start;
+    }
+  }
+</style>

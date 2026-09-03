@@ -1,0 +1,128 @@
+---
+/**
+ * La chiusa della brochure, tenuta com'è: una triade di affermazioni.
+ * Trattamento unico nella pagina — né diptych, né scheda, né sequenza —
+ * così la sezione non somiglia a nessun'altra. L'asimmetria la fa il colore:
+ * l'ultima cella è piena d'ottone, ed è il solo fill accento della pagina.
+ */
+
+const claims = [
+  {
+    lead: "Un unico",
+    word: "interlocutore",
+    note: "Una firma sul contratto, un numero da chiamare. Nessun rimpallo fra studio, impresa e fornitori.",
+  },
+  {
+    lead: "Un unico",
+    word: "progetto",
+    note: "Chi disegna è chi costruisce. Il render non è una promessa di marketing: è il capitolato.",
+  },
+  {
+    lead: "Un unico",
+    word: "risultato",
+    note: "Tempi e budget concordati prima, verificati in cantiere ogni settimana.",
+    accent: true,
+  },
+];
+---
+
+<section class="garanzie">
+  <ul class="garanzie__grid">
+    {
+      claims.map((claim) => (
+        <li class="claim" class:list={[{ "claim--accent": claim.accent }]}>
+          <p class="claim__display">
+            <span class="claim__lead">{claim.lead}</span>
+            <span class="claim__word">{claim.word}.</span>
+          </p>
+          <p class="claim__note">{claim.note}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .garanzie {
+    border-block: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .garanzie__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .claim {
+    display: grid;
+    align-content: space-between;
+    gap: var(--space-2xl);
+    padding: clamp(var(--space-lg), 3.5vw, var(--space-2xl));
+    border-inline-start: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .claim:first-child {
+    border-inline-start: 0;
+  }
+
+  .claim--accent {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .claim__display {
+    font-family: var(--font-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .claim__lead {
+    display: block;
+    font-weight: 200;
+    font-size: var(--text-md);
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+  }
+
+  .claim--accent .claim__lead {
+    color: var(--color-accent-ink);
+    opacity: 0.7;
+  }
+
+  .claim__word {
+    display: block;
+    font-weight: 800;
+    font-size: clamp(var(--text-xl), 2.6vw + 0.5rem, var(--text-3xl));
+  }
+
+  .claim__note {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    max-width: 32ch;
+    color: var(--color-muted);
+  }
+
+  .claim--accent .claim__note {
+    color: var(--color-accent-ink);
+  }
+
+  @media (width < 60rem) {
+    .garanzie__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .claim {
+      gap: var(--space-md);
+      border-inline-start: 0;
+      border-block-start: var(--rule-slab) solid var(--color-ink);
+      padding-inline: var(--gutter);
+      padding-block: var(--space-xl);
+    }
+
+    .claim:first-child {
+      border-block-start: 0;
+    }
+  }
+</style>

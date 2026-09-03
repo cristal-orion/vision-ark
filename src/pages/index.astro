@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Manifesto from "../components/Manifesto.astro";
+import Duality from "../components/Duality.astro";
+import Servizi from "../components/Servizi.astro";
+import Metodo from "../components/Metodo.astro";
+import Garanzie from "../components/Garanzie.astro";
+import Preventivo from "../components/Preventivo.astro";
+import Footer from "../components/Footer.astro";
+
+const title = "Vision Ark — Progettazione, edilizia e interior design chiavi in mano";
+const description =
+  "Impresa edile con studio di progettazione interno. Ristrutturiamo case e attività chiavi in mano: rilievo, render, cantiere e finiture con un solo interlocutore.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  name: "Vision Ark",
+  alternateName: "Vision Ark — interior & more",
+  description,
+  areaServed: "IT",
+  knowsAbout: [
+    "Ristrutturazioni",
+    "Interior design",
+    "Progettazione architettonica",
+    "Ristrutturazione hotel e B&B",
+  ],
+  // TODO: url, telephone, address, vatID, logo, image — da completare col cliente.
+};
+---
+
+<Base title={title} description={description}>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(schema)}
+  />
+
+  <Nav />
+
+  <main id="contenuto">
+    <Hero />
+    <Manifesto />
+    <Duality />
+    <Servizi />
+    <Metodo />
+    <Garanzie />
+    <Preventivo />
+  </main>
+
+  <Footer />
+</Base>
