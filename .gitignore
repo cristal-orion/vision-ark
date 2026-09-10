@@ -39,3 +39,9 @@ immagini-interni/
 # clone si porterebbe dietro per sempre. Non serve alla build.
 # Se la vuoi versionata, togli questa riga — è una scelta, non un vincolo.
 *.pdf
+
+# 3,4 GB di render e foto/video in originale: l'archivio da cui pesco i
+# materiali. Le versioni ottimizzate per il sito stanno in public/ e in
+# src/assets/, quelle sì versionate. GitHub rifiuterebbe questa cartella
+# comunque (limite per file e per repo).
+LAVORI X MARKETING/

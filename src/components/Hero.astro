@@ -55,6 +55,7 @@ import lounge from "../assets/img/04-lounge.png";
   }
 
   .hero__text {
+    container-type: inline-size;
     display: grid;
     align-content: center;
     gap: var(--space-lg);
@@ -72,6 +73,11 @@ import lounge from "../assets/img/04-lounge.png";
 
   .hero__display {
     max-width: 18ch;
+    /* Scala sulla larghezza effettiva della colonna, inclusa la vista split. */
+    font-size: min(var(--text-display), 11.5cqw);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 
   /* Ogni riga è un blocco a sé: così l'andare a capo cade fra le due frasi

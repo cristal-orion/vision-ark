@@ -1,0 +1,267 @@
+---
+const collections = [
+  {
+    id: "render", label: "Render", subtitle: "L’idea prende forma.",
+    description: "Volumi, materiali e luce. Una selezione di ambienti immaginati e progettati, prima del cantiere.",
+    images: [
+      { file: "casa-giovanna-openspace", title: "Abitare, insieme", detail: "Open space · Casa Giovanna", alt: "Render di un open space con divano chiaro, sedute in velluto terracotta e cucina in legno.", width: 2000, height: 1125 },
+      { file: "ciro-marino-zona-giorno", title: "Equilibri caldi", detail: "Zona giorno · Ciro Marino", alt: "Render di un soggiorno con divano curvo, parete ocra e tavolo da pranzo in legno.", width: 2000, height: 1250 },
+      { file: "antonio-capuozzo-ingresso", title: "Luce da vivere", detail: "Living · Antonio Capuozzo", alt: "Render di un living luminoso con boiserie chiara, divano e lampada scultorea sopra il tavolo.", width: 2000, height: 1125 },
+      { file: "giovanna-lucarelli-cucina", title: "Materia e colore", detail: "Cucina · Giovanna Lucarelli", alt: "Render di una cucina in legno e marmo con tavolo ovale e sedute blu.", width: 2000, height: 1250 },
+      { file: "caridi-cucina", title: "Toni naturali", detail: "Cucina · Caridi", alt: "Render di una cucina ad angolo nei toni della pietra e del legno, con sedute terracotta.", width: 2000, height: 1125 },
+      { file: "cira-de-rosa-zona-giorno", title: "Spazi in dialogo", detail: "Zona giorno · Cira De Rosa", alt: "Render di un ingresso aperto sul living, con divisori a listelli e sospensioni in vetro.", width: 2000, height: 1354 },
+      { file: "lino-laureto-living", title: "Ritmo naturale", detail: "Living · Lino Laureto", alt: "Render di una zona pranzo con sedute verdi, parquet e dettagli verticali in legno.", width: 2000, height: 1125 },
+      { file: "de-simone-zona-giorno", title: "Geometrie domestiche", detail: "Zona giorno · De Simone", alt: "Render di una sala da pranzo con parete attrezzata a doghe e sedie color ruggine.", width: 2000, height: 1125 },
+    ],
+  },
+  {
+    id: "progetti", label: "Progetti", subtitle: "Il progetto diventa spazio.",
+    description: "Fotografie delle realizzazioni: arredi, finiture e dettagli che raccontano il lavoro negli ambienti reali.",
+    images: [
+      { file: "nives-bagno", title: "Un gesto di colore", detail: "Bagno · Nives", alt: "Bagno realizzato con doppio lavabo verde, specchi ovali e rivestimento botanico.", width: 1500, height: 2000 },
+      { file: "nives-zona-giorno", title: "Disegnato su misura", detail: "Zona giorno · Nives", alt: "Zona giorno realizzata con parete attrezzata, vetrine e pavimento effetto marmo.", width: 1500, height: 2000 },
+      { file: "nives-living", title: "Trame di luce", detail: "Living · Nives", alt: "Divano angolare davanti a pannelli decorativi botanici retroilluminati.", width: 1500, height: 2000 },
+      { file: "borriello-camera", title: "Intimità, in dettaglio", detail: "Camera · Borriello", alt: "Camera realizzata con testata imbottita, comodini sospesi e luci a sospensione nere.", width: 1500, height: 2000 },
+      { file: "nives-boiserie", title: "Continuità materica", detail: "Boiserie · Nives", alt: "Boiserie a listelli in legno con illuminazione radente e porte a filo parete.", width: 1500, height: 2000 },
+      { file: "borriello-boiserie", title: "Un passaggio naturale", detail: "Boiserie · Borriello", alt: "Parete rivestita con listelli in legno intorno al passaggio verso il corridoio.", width: 1500, height: 2000 },
+      { file: "nives-arredo-su-misura", title: "Precisione quotidiana", detail: "Arredo su misura · Nives", alt: "Dettaglio di un mobile su misura con ante chiare, vetrine e illuminazione integrata.", width: 1500, height: 2000 },
+    ],
+  },
+];
+---
+
+<section class="portfolio section" id="portfolio" aria-labelledby="portfolio-title">
+  <div class="shell">
+    <header class="portfolio__head">
+      <p class="label">Portfolio / Una selezione del nostro lavoro</p>
+      <h2 class="display display--s" id="portfolio-title"><span class="display__lead">Spazi pensati.</span>Spazi vissuti.</h2>
+      <p class="portfolio__intro">Dalla prima visione ai dettagli di ogni giorno.<br />Il nostro modo di dare forma all’abitare.</p>
+    </header>
+
+    <div class="portfolio__bar">
+      <div class="portfolio__tabs" aria-label="Categorie del portfolio">
+        {collections.map((collection) => <a class="portfolio__tab" id={`tab-${collection.id}`} href={`#gallery-${collection.id}`} data-category={collection.id}>{collection.label}<span>{String(collection.images.length).padStart(2, "0")}</span></a>)}
+      </div>
+      <span class="portfolio__hint label" hidden data-enhanced>Esplora gli ambienti <span aria-hidden="true">↗</span></span>
+    </div>
+
+    {collections.map((collection) => (
+      <div class="portfolio__collection" id={`gallery-${collection.id}`} data-collection={collection.id}>
+        <div class="portfolio__collection-head">
+          <h3>{collection.subtitle}</h3>
+          <p>{collection.description}</p>
+        </div>
+        <div class="portfolio__grid">
+          {collection.images.map((photo, index) => (
+            <figure class="portfolio__item" data-item>
+              <a class="portfolio__image" href={`/${collection.id}/${photo.file}.webp`} data-photo data-title={photo.title} data-detail={photo.detail} aria-label={`Ingrandisci: ${photo.title} — ${photo.detail}`}>
+                <img src={`/${collection.id}/${photo.file}.webp`} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" />
+                <span class="portfolio__expand" aria-hidden="true">↗</span>
+                <span class="portfolio__type" aria-hidden="true">{collection.id === "render" ? "Visualizzazione 3D" : "Realizzazione"}</span>
+              </a>
+              <figcaption class="portfolio__caption">
+                <span class="portfolio__number">{String(index + 1).padStart(2, "0")}</span>
+                <div><h4>{photo.title}</h4><p>{photo.detail}</p></div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <div class="portfolio__more" hidden data-more-wrap>
+          <p class="label" data-count aria-live="polite"></p>
+          <button class="btn btn--ghost" type="button" data-more aria-expanded="false" aria-controls={`gallery-${collection.id}`}>Mostra tutta la selezione <span aria-hidden="true">+</span></button>
+        </div>
+      </div>
+    ))}
+    <div class="portfolio__foot"><span class="label">Ogni spazio inizia da un’idea.</span><a href="#preventivo">Parliamo della tua <span aria-hidden="true">↗</span></a></div>
+  </div>
+
+  <dialog class="portfolio__viewer on-ink" aria-label="Galleria fotografica" aria-describedby="viewer-caption">
+    <div class="portfolio__viewer-top"><span class="label" data-viewer-category></span><button type="button" class="portfolio__control" data-close autofocus aria-label="Chiudi galleria">Chiudi <span aria-hidden="true">×</span></button></div>
+    <div class="portfolio__stage"><img data-viewer-image alt="" /></div>
+    <div class="portfolio__viewer-bottom">
+      <div id="viewer-caption" aria-live="polite"><p data-viewer-title></p><span data-viewer-detail></span></div>
+      <div class="portfolio__navigation"><button class="portfolio__control" type="button" data-prev aria-label="Immagine precedente">←</button><span data-viewer-count class="label"></span><button class="portfolio__control" type="button" data-next aria-label="Immagine successiva">→</button></div>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  const portfolio = document.querySelector<HTMLElement>("#portfolio");
+  if (portfolio) {
+    const tabs = Array.from(portfolio.querySelectorAll<HTMLAnchorElement>("[data-category]"));
+    const panels = Array.from(portfolio.querySelectorAll<HTMLElement>("[data-collection]"));
+    const tablist = portfolio.querySelector<HTMLElement>(".portfolio__tabs")!;
+    tablist.setAttribute("role", "tablist");
+    portfolio.querySelector<HTMLElement>("[data-enhanced]")!.hidden = false;
+    const activate = (index: number) => {
+      tabs.forEach((tab, i) => {
+        tab.setAttribute("aria-selected", String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+        panels[i].hidden = i !== index;
+      });
+    };
+    tabs.forEach((tab, index) => {
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-controls", panels[index].id);
+      panels[index].setAttribute("role", "tabpanel");
+      panels[index].setAttribute("aria-labelledby", tab.id);
+      panels[index].tabIndex = 0;
+      tab.addEventListener("click", (event) => { event.preventDefault(); activate(index); });
+      tab.addEventListener("keydown", (event) => {
+        const keys = ["ArrowLeft", "ArrowRight", "Home", "End"];
+        if (!keys.includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        activate(next); tabs[next].focus();
+      });
+    });
+    activate(location.hash === "#gallery-progetti" ? 1 : 0);
+    panels.forEach((panel) => {
+      const items = Array.from(panel.querySelectorAll<HTMLElement>("[data-item]"));
+      const more = panel.querySelector<HTMLButtonElement>("[data-more]")!;
+      const count = panel.querySelector<HTMLElement>("[data-count]")!;
+      items.forEach((item, index) => { item.hidden = index >= 4; });
+      panel.querySelector<HTMLElement>("[data-more-wrap]")!.hidden = false;
+      count.textContent = `04 / ${String(items.length).padStart(2, "0")} immagini`;
+      more.addEventListener("click", () => {
+        items.forEach((item) => { item.hidden = false; });
+        more.setAttribute("aria-expanded", "true");
+        count.textContent = `${String(items.length).padStart(2, "0")} / ${String(items.length).padStart(2, "0")} immagini`;
+        items[4]?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
+        more.hidden = true;
+      });
+    });
+
+    const dialog = portfolio.querySelector<HTMLDialogElement>("dialog")!;
+    const viewerImage = dialog.querySelector<HTMLImageElement>("[data-viewer-image]")!;
+    let photos: HTMLAnchorElement[] = [];
+    let current = 0;
+    let opener: HTMLAnchorElement | null = null;
+    const show = (index: number) => {
+      current = (index + photos.length) % photos.length;
+      const photo = photos[current];
+      viewerImage.src = photo.href;
+      viewerImage.alt = photo.querySelector("img")!.alt;
+      dialog.querySelector<HTMLElement>("[data-viewer-title]")!.textContent = photo.dataset.title!;
+      dialog.querySelector<HTMLElement>("[data-viewer-detail]")!.textContent = photo.dataset.detail!;
+      dialog.querySelector<HTMLElement>("[data-viewer-count]")!.textContent = `${String(current + 1).padStart(2, "0")} / ${String(photos.length).padStart(2, "0")}`;
+    };
+    portfolio.querySelectorAll<HTMLAnchorElement>("[data-photo]").forEach((photo) => {
+      photo.addEventListener("click", (event) => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        opener = photo;
+        const panel = photo.closest<HTMLElement>("[data-collection]")!;
+        photos = Array.from(panel.querySelectorAll<HTMLAnchorElement>("[data-photo]"));
+        dialog.querySelector<HTMLElement>("[data-viewer-category]")!.textContent = `Portfolio / ${panel.dataset.collection === "render" ? "Render" : "Progetti"}`;
+        show(photos.indexOf(photo));
+        dialog.showModal();
+      });
+    });
+    dialog.querySelector("[data-close]")!.addEventListener("click", () => dialog.close());
+    dialog.querySelector("[data-prev]")!.addEventListener("click", () => show(current - 1));
+    dialog.querySelector("[data-next]")!.addEventListener("click", () => show(current + 1));
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault(); show(current + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", () => {
+      opener?.focus({ preventScroll: true });
+    });
+    let touchX = 0;
+    let touchY = 0;
+    viewerImage.addEventListener("touchstart", (event) => { touchX = event.changedTouches[0].clientX; touchY = event.changedTouches[0].clientY; }, { passive: true });
+    viewerImage.addEventListener("touchend", (event) => {
+      const dx = event.changedTouches[0].clientX - touchX;
+      const dy = event.changedTouches[0].clientY - touchY;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  :global(html:has(.portfolio__viewer[open])) { overflow: hidden; }
+  .portfolio { background: var(--color-paper-2); border-block: var(--rule-slab) solid var(--color-ink); }
+  .portfolio__head { display: grid; gap: var(--space-lg); margin-bottom: var(--space-2xl); }
+  .portfolio__head .display { font-size: clamp(2.6rem, 6.4vw, 5.75rem); }
+  .portfolio__intro { color: var(--color-muted); font-size: var(--text-md); max-width: 44ch; }
+  .portfolio__bar { display: flex; justify-content: space-between; align-items: center; border-block: var(--rule-slab) solid var(--color-ink); gap: var(--space-lg); }
+  .portfolio__tabs { display: flex; }
+  .portfolio__tab { display: flex; align-items: baseline; gap: var(--space-md); padding: var(--space-lg) var(--space-xl); font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; border-inline-end: var(--rule-hair) solid var(--color-rule); transition: background var(--dur-short), color var(--dur-short); }
+  .portfolio__tab span { font: 400 var(--text-sm) var(--font-outlier); color: var(--color-muted); }
+  .portfolio__tab[aria-selected="true"] { background: var(--color-ink); color: var(--color-on-ink); }
+  .portfolio__tab[aria-selected="true"] span { color: var(--color-accent); }
+  .portfolio__tab:hover { background: var(--color-accent); color: var(--color-accent-ink); }
+  .portfolio__tab:hover span { color: inherit; }
+  .portfolio__hint { display: flex; align-items: center; gap: var(--space-xl); }
+  .portfolio__hint span { font-size: var(--text-xl); color: var(--color-accent-text); }
+  .portfolio__collection-head { display: flex; justify-content: space-between; gap: var(--space-xl); padding-block: var(--space-xl); }
+  .portfolio__collection-head h3 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 500; }
+  .portfolio__collection-head p { max-width: 48ch; color: var(--color-muted); font-size: var(--text-sm); }
+  .portfolio__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-xl) var(--space-lg); align-items: end; }
+  .portfolio__item { grid-column: span 6; min-width: 0; }
+  .portfolio__item:first-child { grid-column: span 8; }
+  .portfolio__item:nth-child(2) { grid-column: span 4; }
+  .portfolio__image { display: block; position: relative; overflow: hidden; background: var(--color-paper-3); }
+  .portfolio__image img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; transition: transform 700ms var(--ease-out); }
+  .portfolio__item:first-child img { aspect-ratio: 4 / 3; }
+  .portfolio__item:nth-child(2) img { aspect-ratio: 1; }
+  [data-collection="progetti"] .portfolio__image img { aspect-ratio: 3 / 4; }
+  [data-collection="progetti"] .portfolio__item:first-child { grid-column: 2 / span 6; }
+  [data-collection="progetti"] .portfolio__item:nth-child(2) { grid-column: span 4; }
+  [data-collection="progetti"] .portfolio__item:nth-child(n+3) { grid-column: span 4; }
+  .portfolio__image:hover img { transform: scale(1.035); }
+  .portfolio__expand { position: absolute; top: var(--space-md); right: var(--space-md); display: grid; place-items: center; width: 44px; height: 44px; background: var(--color-paper); color: var(--color-ink); font-size: var(--text-lg); transition: background var(--dur-short); }
+  .portfolio__image:hover .portfolio__expand { background: var(--color-accent); }
+  .portfolio__type { position: absolute; bottom: 0; left: 0; background: var(--color-ink); color: var(--color-on-ink); padding: var(--space-xs) var(--space-sm); font-family: var(--font-outlier); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-label); }
+  .portfolio__caption { display: flex; align-items: baseline; gap: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-md); }
+  .portfolio__number { font: 400 var(--text-sm) var(--font-outlier); color: var(--color-accent-text); }
+  .portfolio__caption h4 { font-family: var(--font-display); font-size: clamp(1.1rem, 1.7vw, 1.5rem); font-weight: 500; line-height: 1.25; }
+  .portfolio__caption p { margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-muted); }
+  .portfolio__more { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); padding-top: var(--space-xl); }
+  .portfolio__more .btn { white-space: normal; }
+  .portfolio__foot { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: var(--rule-slab) solid var(--color-ink); display: flex; justify-content: space-between; align-items: center; gap: var(--space-lg); }
+  .portfolio__foot a { font-family: var(--font-display); font-size: var(--text-lg); }
+  .portfolio__foot a span { margin-left: var(--space-md); color: var(--color-accent-text); }
+  .portfolio__foot a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .portfolio__viewer { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; height: 100dvh; max-height: none; margin: 0; padding: var(--space-lg) var(--gutter); border: 0; }
+  .portfolio__viewer[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: var(--space-md); }
+  .portfolio__viewer::backdrop { background: var(--color-ink); }
+  .portfolio__viewer-top, .portfolio__viewer-bottom { display: flex; justify-content: space-between; align-items: center; gap: var(--space-lg); }
+  .portfolio__viewer-top { padding-bottom: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-on-ink-rule); }
+  .portfolio__stage { display: flex; min-height: 0; align-items: center; justify-content: center; }
+  .portfolio__stage img { width: 100%; height: 100%; object-fit: contain; }
+  .portfolio__viewer-bottom { padding-top: var(--space-sm); border-top: var(--rule-hair) solid var(--color-on-ink-rule); }
+  [data-viewer-title] { font-family: var(--font-display); font-size: var(--text-lg); }
+  [data-viewer-detail] { color: var(--color-on-ink-2); font-size: var(--text-sm); }
+  .portfolio__navigation { display: flex; align-items: center; gap: var(--space-lg); flex-shrink: 0; }
+  .portfolio__control { display: flex; align-items: center; justify-content: center; gap: var(--space-md); min-width: 44px; min-height: 44px; background: transparent; color: var(--color-on-ink); border: var(--rule-hair) solid var(--color-on-ink-rule); padding: var(--space-xs) var(--space-md); }
+  .portfolio__control:hover { background: var(--color-accent); color: var(--color-accent-ink); }
+  @media (width < 60rem) {
+    .portfolio__hint { display: none; }
+    .portfolio__collection-head { flex-direction: column; gap: var(--space-sm); }
+    .portfolio__item:first-child { grid-column: span 12; }
+    .portfolio__item:nth-child(2) { grid-column: span 6; }
+    .portfolio__item:nth-child(2) img, .portfolio__item:first-child img { aspect-ratio: 16 / 10; }
+    [data-collection="progetti"] .portfolio__item:nth-child(n) { grid-column: span 6; }
+  }
+  @media (width < 40rem) {
+    .portfolio__head { margin-bottom: var(--space-xl); }
+    .portfolio__head .label { font-size: var(--text-xs); }
+    .portfolio__intro { font-size: var(--text-base); }
+    .portfolio__tabs { width: 100%; }
+    .portfolio__tab { flex: 1; justify-content: space-between; padding: var(--space-md); }
+    .portfolio__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+    .portfolio__item:nth-child(n), [data-collection="progetti"] .portfolio__item:nth-child(n) { grid-column: 1; }
+    .portfolio__more, .portfolio__foot { align-items: flex-start; flex-direction: column; }
+    .portfolio__viewer { padding: var(--space-sm); }
+    .portfolio__viewer-bottom { align-items: flex-start; flex-direction: column; gap: var(--space-sm); }
+    .portfolio__navigation { width: 100%; justify-content: space-between; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio__image img { transition: none; }
+    .portfolio__image:hover img { transform: none; }
+  }
+</style>
