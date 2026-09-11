@@ -2,19 +2,19 @@
 /**
  * Informativa privacy — IMPIANTO, NON TESTO LEGALE.
  *
- * Il form raccoglie dati personali, quindi il link nel footer deve puntare a
- * qualcosa: questa è l'ossatura con i campi da compilare marcati .tbd.
- * Prima di pubblicare va completata (e fatta vedere a chi di dovere): i dati
- * del titolare, la base giuridica e i tempi di conservazione non si inventano.
+ * Titolare, sede e recapiti sono ora quelli veri (src/data/contatti.ts).
+ * Resta aperto quanto non si inventa: i tempi di conservazione. Prima di
+ * pubblicare va comunque fatta vedere a chi di dovere.
  */
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { contatti, sedeEstesa } from "../data/contatti";
 
 const sections = [
   {
     title: "Titolare del trattamento",
-    body: "Vision Ark, [ragione sociale completa], con sede in [indirizzo], P. IVA [numero]. Per ogni richiesta: [email di contatto].",
+    body: `${contatti.nome}, con sede in ${sedeEstesa}, P. IVA ${contatti.partitaIva}. Per ogni richiesta: ${contatti.email} — tel. ${contatti.telefono}.`,
   },
   {
     title: "Quali dati raccogliamo",
@@ -34,11 +34,11 @@ const sections = [
   },
   {
     title: "I tuoi diritti",
-    body: "Puoi chiedere in ogni momento accesso, rettifica, cancellazione, limitazione e portabilità dei dati, e revocare il consenso. Scrivi a [email di contatto]: rispondiamo entro trenta giorni. Puoi anche rivolgerti al Garante per la protezione dei dati personali.",
+    body: `Puoi chiedere in ogni momento accesso, rettifica, cancellazione, limitazione e portabilità dei dati, e revocare il consenso. Scrivi a ${contatti.email}: rispondiamo entro trenta giorni. Puoi anche rivolgerti al Garante per la protezione dei dati personali.`,
   },
 ];
 
-const updated = "[data ultimo aggiornamento]";
+const updated = "11 settembre 2026";
 ---
 
 <Base
@@ -55,8 +55,9 @@ const updated = "[data ultimo aggiornamento]";
       <p class="legal__meta">Ultimo aggiornamento: {updated}</p>
 
       <p class="legal__draft">
-        Questa pagina &egrave; una bozza strutturale. Le voci fra parentesi
-        quadre vanno completate prima della pubblicazione.
+        Questa pagina &egrave; una bozza strutturale. La voce fra parentesi
+        quadre &mdash; i tempi di conservazione &mdash; va completata prima
+        della pubblicazione.
       </p>
 
       {

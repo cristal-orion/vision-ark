@@ -259,20 +259,27 @@ vedi passare, fermati e sistemale prima di andare avanti.
 
 ## Cosa manca prima di pubblicare
 
-Nel footer e nella pagina privacy i segnaposto sono marcati in ottone fra
-parentesi quadre (`[ Telefono da inserire ]`), così è impossibile pubblicarli
-per distrazione. Vanno sostituiti:
+L'anagrafica dello studio sta tutta in **`src/data/contatti.ts`** — nome, email,
+telefono, P. IVA, sede. La leggono footer, `/privacy`, il `<noscript>` del form
+e lo schema JSON-LD: se cambia un recapito si tocca solo quel file. Il dominio
+sta in `astro.config.mjs` (`site`), da cui Astro deriva canonical e `og:url`.
 
-- **Footer** — telefono, sede, P. IVA, e l'indirizzo email vero (ora è
-  `info@visionark.it`, anche nel `<noscript>` di `Preventivo.astro`).
+Resta aperto:
+
+- **`/privacy`** — i tempi di conservazione (`[Da definire] mesi`) e la ragione
+  sociale completa, se diversa da «Vision Ark». Il form raccoglie dati
+  personali: questa pagina serve davvero e va fatta vedere a chi di dovere.
 - **`form-relay`** — la voce `vision-ark` nel `config.json` sulla VPS, col
   destinatario vero e le origini di produzione.
-- **`/privacy`** — titolare del trattamento, tempi di conservazione, data di
-  aggiornamento. Il form raccoglie dati personali: questa pagina serve davvero.
-- **`src/pages/index.astro`** — nello schema JSON-LD: `url`, `telephone`,
-  `address`, `vatID`, `logo`.
-- **`astro.config.mjs`** — impostare `site: 'https://...'` col dominio reale,
-  serve per canonical e sitemap.
+- **`src/pages/index.astro`** — nello schema JSON-LD mancano `logo` e `image`:
+  servono quando il marchio esiste come file. Vedi sotto.
+- **Il marchio** — il logo della brochure (geometrico leggero, spaziatura
+  stretta, filetto sopra «interior & more») e il wordmark del sito (Bricolage
+  Grotesque 200, tracciato largo) sono due marchi diversi. Nel PDF il logo è
+  rasterizzato dentro la foto: non se ne estrae un vettoriale. Se il cliente
+  manda l'SVG si sostituisce in `Nav.astro` e `Footer.astro`; altrimenti resta
+  quello attuale e va rifatta `public/favicon.svg`, che oggi non somiglia a
+  nessuno dei due.
 
 Contenuti da confermare con il cliente:
 

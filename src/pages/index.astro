@@ -10,6 +10,7 @@ import Metodo from "../components/Metodo.astro";
 import Garanzie from "../components/Garanzie.astro";
 import Preventivo from "../components/Preventivo.astro";
 import Footer from "../components/Footer.astro";
+import { contatti } from "../data/contatti";
 
 const title = "Vision Ark — Progettazione, edilizia e interior design chiavi in mano";
 const description =
@@ -28,7 +29,19 @@ const schema = {
     "Progettazione architettonica",
     "Ristrutturazione hotel e B&B",
   ],
-  // TODO: url, telephone, address, vatID, logo, image — da completare col cliente.
+  url: "https://visionark.it/",
+  email: contatti.email,
+  telephone: contatti.telefonoHref,
+  vatID: contatti.partitaIva,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: contatti.sede.via,
+    postalCode: contatti.sede.cap,
+    addressLocality: contatti.sede.comune,
+    addressRegion: contatti.sede.provincia,
+    addressCountry: "IT",
+  },
+  // TODO: logo, image — serve il marchio esportato in file.
 };
 ---
 

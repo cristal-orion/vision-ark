@@ -4,8 +4,9 @@
  * riga di link inline. Chiude la pagina come una testata, non come una
  * mappa del sito che non esiste.
  *
- * I valori marcati .tbd sono segnaposto: vanno sostituiti prima di pubblicare.
+ * Anagrafica e recapiti arrivano da src/data/contatti.ts.
  */
+import { contatti, sedeLocalita } from "../data/contatti";
 
 const links = [
   { href: "/#studio", label: "Studio" },
@@ -44,14 +45,15 @@ const year = new Date().getFullYear();
       </nav>
 
       <address class="foot__contact">
-        <a class="foot__contact-link" href="mailto:info@visionark.it">info@visionark.it</a>
-        <span class="tbd">Telefono da inserire</span>
-        <span class="tbd">Sede da inserire</span>
+        <a class="foot__contact-link" href={`mailto:${contatti.email}`}>{contatti.email}</a>
+        <a class="foot__contact-link" href={`tel:${contatti.telefonoHref}`}>{contatti.telefono}</a>
+        <span>{contatti.sede.via}</span>
+        <span>{sedeLocalita}</span>
       </address>
     </div>
 
     <div class="foot__legal">
-      <p>&copy; {year} Vision Ark. <span class="tbd">P. IVA da inserire</span></p>
+      <p>&copy; {year} Vision Ark &mdash; P. IVA {contatti.partitaIva}</p>
       <a class="foot__legal-link" href="/privacy">Informativa privacy</a>
     </div>
   </div>
@@ -178,20 +180,6 @@ const year = new Date().getFullYear();
 
   .foot__legal-link:active {
     transform: translateY(1px);
-  }
-
-  /* Segnaposto: impossibili da pubblicare per distrazione. */
-  .tbd {
-    color: var(--color-accent);
-    border-block-end: var(--rule-hair) dotted currentColor;
-  }
-
-  .tbd::before {
-    content: "[ ";
-  }
-
-  .tbd::after {
-    content: " ]";
   }
 
   @media (width < 48rem) {

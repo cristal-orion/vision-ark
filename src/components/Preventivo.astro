@@ -9,6 +9,7 @@
 import { Image } from "astro:assets";
 import colazioni from "../assets/img/05-sala-colazioni.png";
 import { steps } from "../data/preventivo";
+import { contatti } from "../data/contatti";
 
 const total = String(steps.length).padStart(2, "0");
 ---
@@ -173,8 +174,11 @@ const total = String(steps.length).padStart(2, "0");
 
         <noscript>
           <p class="quote__noscript">
-            Il modulo a passi ha bisogno di JavaScript. Scrivici direttamente a
-            <a class="quote__mail" href="mailto:info@visionark.it">info@visionark.it</a>
+            {/* `compressHTML` mangia lo spazio a fine riga: qui va esplicito. */}
+            Il modulo a passi ha bisogno di JavaScript. Scrivici direttamente a{" "}
+            <a class="quote__mail" href={`mailto:${contatti.email}`}>{contatti.email}</a>{" "}
+            o chiamaci al{" "}
+            <a class="quote__mail" href={`tel:${contatti.telefonoHref}`}>{contatti.telefono}</a>,
             indicando se si tratta di una casa o di un&rsquo;attivit&agrave;, quali
             ambienti e dove si trova l&rsquo;immobile.
           </p>
