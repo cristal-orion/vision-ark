@@ -202,7 +202,7 @@ function init(form: HTMLFormElement) {
 
     if (first instanceof HTMLInputElement && first.type === "tel") {
       const digits = value.replace(/[^\d]/g, "");
-      if (digits.length < 8) return "Serve un numero raggiungibile.";
+      if (digits.length < 8) return "Inserisci un numero di telefono completo.";
     }
 
     return null;

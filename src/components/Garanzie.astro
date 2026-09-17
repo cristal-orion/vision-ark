@@ -1,6 +1,6 @@
 ---
 /**
- * La chiusa della brochure, tenuta com'è: una triade di affermazioni.
+ * Riepilogo del rapporto con il cliente: referente, progetto, tempi e costi.
  * Trattamento unico nella pagina — né diptych, né scheda, né sequenza —
  * così la sezione non somiglia a nessun'altra. L'asimmetria la fa il colore:
  * l'ultima cella è piena d'ottone, ed è il solo fill accento della pagina.
@@ -8,19 +8,19 @@
 
 const claims = [
   {
-    lead: "Un unico",
-    word: "interlocutore",
-    note: "Una firma sul contratto, un numero da chiamare. Nessun rimpallo fra studio, impresa e fornitori.",
+    lead: "Il tuo",
+    word: "referente",
+    note: "Ti rivolgi a Vision Ark per il progetto e i lavori. Noi coordiniamo le squadre e i fornitori.",
   },
   {
-    lead: "Un unico",
-    word: "progetto",
-    note: "Chi disegna è chi costruisce. Il render non è una promessa di marketing: è il capitolato.",
+    lead: "Le scelte",
+    word: "di progetto",
+    note: "Esaminiamo con te planimetrie, render e materiali prima di avviare il cantiere.",
   },
   {
-    lead: "Un unico",
-    word: "risultato",
-    note: "Tempi e budget concordati prima, verificati in cantiere ogni settimana.",
+    lead: "Tempi e",
+    word: "costi",
+    note: "Concordiamo il budget e il programma dei lavori in base agli interventi da realizzare.",
     accent: true,
   },
 ];
@@ -33,7 +33,7 @@ const claims = [
         <li class="claim" class:list={[{ "claim--accent": claim.accent }]}>
           <p class="claim__display">
             <span class="claim__lead">{claim.lead}</span>
-            <span class="claim__word">{claim.word}.</span>
+            <span class="claim__word">{claim.word}</span>
           </p>
           <p class="claim__note">{claim.note}</p>
         </li>

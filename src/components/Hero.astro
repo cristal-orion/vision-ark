@@ -1,93 +1,197 @@
 ---
-/**
- * H2 · Split diptych — knobs: ratio=7/5 · lato destro=fotografia ·
- * divisore=regola verticale da 3px. Il render sfonda fino al bordo destro
- * del viewport: è l'unico elemento che rompe la griglia in tutta la pagina.
- */
 import { Image } from "astro:assets";
 import lounge from "../assets/img/04-lounge.png";
+import drawing from "../assets/img/04-lounge-drawing.png";
 ---
 
-<section class="hero" id="top">
-  <div class="hero__text">
-    <p class="label reveal" style="--i: 0">Progettazione &middot; Edilizia &middot; Interior design</p>
+<section class="hero" id="top" data-hero-comparison aria-labelledby="hero-title">
+  <!-- Il testo e il disegno hanno la stessa maschera, ma dimensioni fisse:
+       il separatore li cancella senza spostarli o cambiare gli a capo. -->
+  <div class="hero__copy" data-hero-copy>
+    <div class="hero__text" data-hero-text>
+      <p class="label hero__eyebrow">Progettazione &middot; Edilizia &middot; Interior design</p>
 
-    <h1 class="display hero__display reveal" style="--i: 1">
-      <span class="hero__line">Dalla progettazione</span>
-      <span class="hero__line"><span class="slab">alla realizzazione</span></span>
-    </h1>
+      <h1 class="display hero__display" id="hero-title">
+        <span class="hero__line">Ristrutturiamo</span>
+        <span class="hero__line"><span class="slab">case e attivit&agrave;</span></span>
+      </h1>
 
-    <p class="lede hero__lede reveal" style="--i: 2">
-      Un&rsquo;impresa edile con uno studio di progettazione dentro. Ristrutturiamo
-      case e attivit&agrave; chiavi in mano: un solo interlocutore dal rilievo
-      alla consegna.
-    </p>
+      <p class="lede hero__lede">
+        Siamo un&rsquo;impresa edile con uno studio di progettazione interno.
+        Ci occupiamo del progetto e dei lavori, dal rilievo alla posa delle finiture.
+      </p>
 
-    <div class="hero__actions reveal" style="--i: 3">
-      <a class="btn" href="/#preventivo">
-        Richiedi il preventivo
-        <span class="btn__arrow" aria-hidden="true">&rarr;</span>
-      </a>
-      <a class="btn btn--ghost" href="/#metodo">Come lavoriamo</a>
+      <div class="hero__actions">
+        <a class="btn" href="/#preventivo">
+          Richiedi un preventivo
+          <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a class="btn btn--ghost" href="/#metodo">Come lavoriamo</a>
+      </div>
     </div>
   </div>
 
-  <figure class="figure hero__figure">
+  <div class="hero__scene" data-hero-scene>
     <Image
+      class="hero__image"
       src={lounge}
-      alt="Lounge di una struttura ricettiva: boiserie grafite, divano curvo in velluto ocra, applique in ottone."
-      widths={[560, 900, 1400]}
-      sizes="(width < 60rem) 100vw, 42vw"
+      alt="Render di una lounge con divano ocra, poltrone verde bosco e cognac, tavolini in marmo e boiserie grafite."
+      widths={[640, 960, 1280, 1672]}
+      sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      decoding="sync"
+      decoding="async"
+      draggable="false"
     />
-  </figure>
+
+    <div class="hero__drawing" id="hero-drawing">
+      <Image
+        class="hero__image"
+        src={drawing}
+        alt="Disegno della stessa lounge a tratto grafite su carta avorio."
+        widths={[640, 960, 1280, 1672]}
+        sizes="100vw"
+        loading="eager"
+        decoding="async"
+        draggable="false"
+      />
+    </div>
+
+    <div class="hero__controls" data-hero-controls hidden>
+      <div class="hero__divider" aria-hidden="true"></div>
+      <div
+        class="hero__rail"
+        data-hero-slider
+        role="slider"
+        tabindex="0"
+        aria-label="Confronto tra disegno e render"
+        aria-describedby="hero-slider-help"
+        aria-controls="hero-drawing"
+        aria-orientation="horizontal"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="64"
+        aria-valuetext="64% disegno, 36% render"
+      >
+        <span class="hero__handle" aria-hidden="true">
+          <svg viewBox="0 0 32 24" width="32" height="24" fill="none">
+            <path d="m10 7-5 5 5 5M22 7l5 5-5 5M16 5v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" />
+          </svg>
+        </span>
+      </div>
+      <p class="hero__hint label" aria-hidden="true">Trascina per confrontare</p>
+      <p class="visually-hidden" id="hero-slider-help">
+        Trascina il separatore oppure usa le frecce sinistra e destra.
+        Home mostra tutto il render, Fine tutto il disegno.
+      </p>
+    </div>
+  </div>
 </section>
+
+<script>
+  import "../scripts/hero-comparison";
+</script>
 
 <style>
   .hero {
+    --hero-reveal: 64%;
+    --hero-copy-width: min(40rem, 46vw);
+    --hero-inset: max(var(--gutter), calc((100vw - var(--page-max)) / 2 + var(--gutter)));
+    --hero-grip-size: 3.5rem;
+    position: relative;
+    isolation: isolate;
     display: grid;
-    /* minmax(0, …) e non 1fr secco: le tracce con immagini non devono
-       poter crescere oltre la colonna (gate 61) */
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 1fr);
     border-block-end: var(--rule-slab) solid var(--color-ink);
+    background: var(--color-paper);
+  }
+
+  .hero__scene,
+  .hero__copy {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+
+  .hero__scene {
+    position: relative;
+    min-height: clamp(34rem, calc(100svh - 5rem), 56rem);
+  }
+
+  .hero__image,
+  .hero__drawing,
+  .hero__controls {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__image {
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .hero__drawing,
+  .hero__copy {
+    clip-path: inset(0 calc(100% - var(--hero-reveal)) 0 0);
+  }
+
+  .hero__copy {
+    position: relative;
+    z-index: var(--z-base);
+    display: grid;
+    align-content: center;
+    padding: var(--space-3xl) var(--hero-inset);
+    pointer-events: none;
+  }
+
+  .hero__copy::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: -1;
+    width: calc(var(--hero-inset) + var(--hero-copy-width) + var(--space-3xl));
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-paper) 90%, transparent),
+      color-mix(in oklab, var(--color-paper) 82%, transparent) calc(100% - var(--space-3xl)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      var(--color-ink) calc(100% - 7rem),
+      transparent calc(100% - 4rem)
+    );
   }
 
   .hero__text {
     container-type: inline-size;
+    width: var(--hero-copy-width);
     display: grid;
-    align-content: center;
     gap: var(--space-lg);
-    /* allinea il testo alla gabbia .shell anche se la sezione è full-bleed */
-    padding-inline-start: max(
-      var(--gutter),
-      calc((100% - var(--page-max)) / 2 + var(--gutter))
-    );
-    padding-inline-end: var(--gutter);
-    /* gate 54 — il fondo pesa più del cielo: l'hero si appoggia
-       alla sezione successiva invece di galleggiare */
-    padding-block: clamp(var(--space-xl), 5.5vw, var(--space-2xl))
-      clamp(var(--space-2xl), 8vw, var(--space-4xl));
+    pointer-events: auto;
+  }
+
+  .hero__eyebrow {
+    color: var(--color-ink-2);
   }
 
   .hero__display {
-    max-width: 18ch;
-    /* Scala sulla larghezza effettiva della colonna, inclusa la vista split. */
-    font-size: min(var(--text-display), 11.5cqw);
+    font-size: min(var(--text-display), 10.5cqw);
     overflow-wrap: normal;
     word-break: normal;
     hyphens: none;
   }
 
-  /* Ogni riga è un blocco a sé: così l'andare a capo cade fra le due frasi
-     e non in mezzo, e la fascia nera parte sempre a inizio riga. */
   .hero__line {
     display: block;
   }
 
   .hero__lede {
-    max-width: 40ch;
+    max-width: 37ch;
+    font-size: clamp(var(--text-md), 1.3vw + 0.5rem, var(--text-lg));
   }
 
   .hero__actions {
@@ -98,27 +202,120 @@ import lounge from "../assets/img/04-lounge.png";
     margin-block-start: var(--space-xs);
   }
 
-  .hero__figure {
-    border-inline-start: var(--rule-slab) solid var(--color-ink);
-    min-height: clamp(22rem, 52vh, 38rem);
+  .hero__actions .btn--ghost {
+    --btn-bg: var(--color-paper);
+  }
+
+  .hero__controls {
+    z-index: var(--z-raised);
+    pointer-events: none;
+  }
+
+  .hero__divider {
+    position: absolute;
+    inset-block: 0;
+    left: var(--hero-reveal);
+    width: var(--rule-slab);
+    transform: translateX(-50%);
+    background: var(--color-accent);
+  }
+
+  .hero__rail {
+    position: absolute;
+    inset-block: 0;
+    /* La linea raggiunge 0 e 100%; la presa rimane dentro l'immagine. */
+    left: clamp(calc(var(--hero-grip-size) / 2), var(--hero-reveal), calc(100% - var(--hero-grip-size) / 2));
+    width: var(--hero-grip-size);
+    display: grid;
+    place-items: center;
+    transform: translateX(-50%);
+    pointer-events: auto;
+    touch-action: pan-y;
+    cursor: ew-resize;
+    user-select: none;
+  }
+
+  .hero__handle {
+    display: grid;
+    place-items: center;
+    width: var(--hero-grip-size);
+    height: var(--hero-grip-size);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+    border: var(--rule-hair) solid var(--color-ink);
+    transition: background-color var(--dur-micro) var(--ease-out);
+  }
+
+  .hero__rail:hover .hero__handle,
+  .hero[data-dragging] .hero__handle {
+    background: var(--color-accent-2);
+  }
+
+  .hero__rail:focus-visible {
+    outline: none;
+  }
+
+  .hero__rail:focus-visible .hero__handle {
+    outline: var(--rule-slab) solid var(--color-ink);
+    outline-offset: 4px;
+  }
+
+  .hero__hint {
+    position: absolute;
+    inset-block-end: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+
+  .hero[data-interacted] .hero__hint {
+    visibility: hidden;
+  }
+
+  .hero[data-dragging] {
+    user-select: none;
   }
 
   @media (width < 60rem) {
     .hero {
-      grid-template-columns: minmax(0, 1fr);
+      --hero-reveal: 50%;
+      --hero-copy-width: 100%;
+      --hero-inset: var(--gutter);
+      --hero-grip-size: 3rem;
+    }
+
+    .hero__copy {
+      grid-area: 1 / 1;
+      clip-path: none;
+      padding-block: var(--space-xl);
+    }
+
+    .hero__copy::before {
+      display: none;
     }
 
     .hero__text {
-      padding-inline: var(--gutter);
-      padding-block-end: var(--space-xl);
+      max-width: 42rem;
     }
 
-    .hero__figure {
-      /* il divisore verticale diventa orizzontale */
-      border-inline-start: 0;
-      border-block-start: var(--rule-slab) solid var(--color-ink);
+    .hero__display {
+      font-size: min(var(--text-display), 11.5cqw);
+    }
+
+    .hero__scene {
+      grid-area: 2 / 1;
       min-height: 0;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 1672 / 941;
+      border-block-start: var(--rule-slab) solid var(--color-ink);
+    }
+
+    .hero__hint {
+      inset-block-start: var(--space-sm);
+      inset-block-end: auto;
     }
   }
 
@@ -126,6 +323,12 @@ import lounge from "../assets/img/04-lounge.png";
     .hero__actions .btn {
       flex: 1 1 100%;
       justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__handle {
+      transition: none;
     }
   }
 </style>

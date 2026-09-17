@@ -17,11 +17,11 @@ const total = String(steps.length).padStart(2, "0");
 <section class="preventivo section" id="preventivo">
   <div class="shell">
     <div class="head">
-      <h2 class="head__title">Richiedi il tuo preventivo</h2>
+      <h2 class="head__title">Richiedi un preventivo</h2>
       <p class="head__note">
-        Tre domande per inquadrare il lavoro, poi i tuoi contatti. Ti
-        rispondiamo con le domande tecniche che servono a fare un numero
-        serio &mdash; non con un listino a caso.
+        Indica il tipo di immobile e gli ambienti da ristrutturare,
+        poi lascia i tuoi recapiti. Ti contatteremo per approfondire
+        gli interventi e preparare un preventivo.
       </p>
     </div>
 
@@ -100,7 +100,7 @@ const total = String(steps.length).padStart(2, "0");
                       <div class="field field--wide" data-field={field.name} data-required={field.required}>
                         <label class="field__label" for={`f-${field.name}`}>
                           {field.label}
-                          {!field.required && <span class="field__opt"> — facoltativo</span>}
+                          {!field.required && <span class="field__opt"> (facoltativo)</span>}
                         </label>
                         <textarea
                           class="field__control"
@@ -165,17 +165,17 @@ const total = String(steps.length).padStart(2, "0");
           <p class="done__mark" aria-hidden="true">&#10003;</p>
           <h3 class="done__title">Richiesta inviata</h3>
           <p class="done__note">
-            Grazie. Abbiamo la tua richiesta e ti ricontattiamo entro due
-            giorni lavorativi. Se nel frattempo hai planimetrie o foto dello
-            stato attuale, tienile a portata di mano: accorciano di molto il
-            primo giro di domande.
+            Grazie, abbiamo ricevuto la tua richiesta. Ti contatteremo ai
+            recapiti indicati per parlare dei lavori. Se hai planimetrie
+            o foto dell&rsquo;immobile, potremo esaminarle durante il primo
+            confronto.
           </p>
         </div>
 
         <noscript>
           <p class="quote__noscript">
             {/* `compressHTML` mangia lo spazio a fine riga: qui va esplicito. */}
-            Il modulo a passi ha bisogno di JavaScript. Scrivici direttamente a{" "}
+            Per usare il modulo, attiva JavaScript oppure scrivici a{" "}
             <a class="quote__mail" href={`mailto:${contatti.email}`}>{contatti.email}</a>{" "}
             o chiamaci al{" "}
             <a class="quote__mail" href={`tel:${contatti.telefonoHref}`}>{contatti.telefono}</a>,
@@ -198,9 +198,8 @@ const total = String(steps.length).padStart(2, "0");
         </figure>
 
         <ul class="reassure">
-          <li class="reassure__item">Rispondiamo entro 2 giorni lavorativi.</li>
-          <li class="reassure__item">Il sopralluogo serve prima del numero, non dopo.</li>
-          <li class="reassure__item">I tuoi dati restano nostri: nessuna lista, nessun giro.</li>
+          <li class="reassure__item">Nelle note puoi indicare la superficie e quando vorresti iniziare.</li>
+          <li class="reassure__item">Usiamo i tuoi recapiti per rispondere alla richiesta.</li>
         </ul>
       </aside>
     </div>

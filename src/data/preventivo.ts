@@ -75,7 +75,7 @@ export const steps: Step[] = [
     id: "immobile",
     tag: "L'immobile",
     question: "Casa o attività?",
-    note: "Serve a capire con chi parliamo: un appartamento e una struttura ricettiva hanno vincoli, tempi e autorizzazioni diversi.",
+    note: "Seleziona il tipo di immobile da ristrutturare.",
     fields: [
       {
         kind: "choice",
@@ -86,12 +86,12 @@ export const steps: Step[] = [
           {
             value: "Casa",
             label: "Casa",
-            note: "Appartamento, villa, casa indipendente. Ristrutturazione totale o singoli ambienti.",
+            note: "Appartamento, villa o casa indipendente.",
           },
           {
             value: "Attività",
             label: "Attività",
-            note: "Hotel, B&B, ristorante, negozio, ufficio. Anche a struttura aperta, per fasi.",
+            note: "Hotel, B&B, ristorante, negozio o ufficio.",
           },
         ],
       },
@@ -100,7 +100,7 @@ export const steps: Step[] = [
   {
     id: "ambienti",
     tag: "Gli ambienti",
-    question: "Interni, esterni o tutti e due?",
+    question: "Quali ambienti vuoi ristrutturare?",
     note: "Puoi selezionare più di una voce.",
     fields: [
       {
@@ -118,7 +118,7 @@ export const steps: Step[] = [
           {
             value: "Esterni",
             label: "Esterni",
-            note: "Facciate, ingressi, terrazze, rooftop, lounge outdoor, percorsi e illuminazione.",
+            note: "Facciate, ingressi, terrazze, aree relax, percorsi e illuminazione.",
           },
         ],
       },
@@ -127,8 +127,8 @@ export const steps: Step[] = [
   {
     id: "contatti",
     tag: "I contatti",
-    question: "Dove ti richiamiamo?",
-    note: "Rispondiamo entro due giorni lavorativi con le domande tecniche che servono a fare un numero serio.",
+    question: "Come possiamo contattarti?",
+    note: "Inserisci i tuoi recapiti e l’indirizzo dell’immobile. Puoi aggiungere i dettagli dei lavori nelle note facoltative.",
     fields: [
       {
         kind: "text",
@@ -169,9 +169,9 @@ export const steps: Step[] = [
       {
         kind: "textarea",
         name: "note",
-        label: "Raccontaci il progetto",
+        label: "Descrivi i lavori",
         placeholder:
-          "Metri quadri, stato attuale, cosa vorresti ottenere, tempi che hai in testa.",
+          "Indica la superficie, le condizioni dell’immobile e gli interventi che vorresti fare. Hai una data di inizio prevista?",
         rows: 4,
       },
       {

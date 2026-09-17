@@ -11,40 +11,37 @@ const stages = [
     n: "01",
     title: "Progettazione",
     prose:
-      "Rilievo dello stato di fatto, analisi dei flussi e delle autorizzazioni, poi il progetto. Il render fotorealistico arriva prima del cantiere: le decisioni difficili si prendono guardando un&rsquo;immagine, non un preventivo.",
+      "Rileviamo le misure dell&rsquo;immobile e studiamo la distribuzione degli ambienti. Prepariamo planimetrie e render per discutere con te il progetto, poi sviluppiamo i disegni tecnici per i lavori.",
     items: [
       "Rilievo e studio delle planimetrie",
-      "Concept e scelta dei materiali",
+      "Proposte di arredo e materiali",
       "Render fotorealistici",
       "Progettazione tecnica ed esecutiva",
     ],
-    claim: "Vedi il risultato finale prima che inizino i lavori.",
   },
   {
     n: "02",
     title: "Lavori edili",
     prose:
-      "Gestiamo direttamente le fasi operative. Un unico capocantiere risponde del cronoprogramma, coordina le squadre e tiene il filo con i fornitori: non ci sono zone grigie fra imprese.",
+      "Organizziamo le lavorazioni e coordiniamo le squadre in cantiere. Seguiamo le opere murarie e gli impianti, verificando l&rsquo;avanzamento rispetto al progetto e al programma concordato.",
     items: [
       "Demolizioni e opere murarie",
       "Impianti elettrici, idraulici, climatizzazione",
       "Coordinamento squadre e fornitori",
       "Direzione lavori e sicurezza",
     ],
-    claim: "Un solo responsabile, dal primo giorno alla consegna.",
   },
   {
     n: "03",
     title: "Materiali e finiture",
     prose:
-      "Selezioniamo materiali che devono resistere all&rsquo;uso reale &mdash; una camera d&rsquo;albergo vede cento ospiti l&rsquo;anno, un bagno di casa ci vive dentro vent&rsquo;anni. La finitura si sceglie per durata, non solo per foto.",
+      "Ti aiutiamo a scegliere pavimenti, rivestimenti e arredi in base al progetto e al budget. Per gli ambienti di hotel e B&B valutiamo la resistenza all&rsquo;usura e le esigenze di pulizia e manutenzione.",
     items: [
       "Rivestimenti e pavimentazioni",
       "Ceramiche e arredo bagno",
       "Materiali tecnici a uso intensivo",
       "Arredo su misura e complementi",
     ],
-    claim: "Campionature fisiche in mano, prima dell&rsquo;ordine.",
   },
 ];
 ---
@@ -54,8 +51,8 @@ const stages = [
     <div class="head metodo__head">
       <h2 class="head__title">Come lavoriamo</h2>
       <p class="head__note">
-        Tre fasi, nell&rsquo;ordine. Nessuna delle tre passa a un&rsquo;altra
-        azienda.
+        Curiamo il progetto, organizziamo il cantiere e ti affianchiamo
+        nella scelta dei materiali.
       </p>
     </div>
 
@@ -79,7 +76,6 @@ const stages = [
                     <li class="stage__item">{item}</li>
                   ))}
                 </ul>
-                <p class="stage__claim" set:html={stage.claim} />
               </div>
             </div>
           </li>
@@ -170,16 +166,6 @@ const stages = [
     padding-block: var(--space-sm);
     border-block-end: var(--rule-hair) solid var(--color-on-ink-rule);
     font-size: var(--text-base);
-    color: var(--color-on-ink);
-  }
-
-  .stage__claim {
-    font-family: var(--font-display);
-    font-weight: 300;
-    /* resta un gradino sopra l'elenco, così la gerarchia tiene */
-    font-size: clamp(var(--text-md), 0.9vw + 0.95rem, var(--text-lg));
-    line-height: 1.25;
-    max-width: 24ch;
     color: var(--color-on-ink);
   }
 

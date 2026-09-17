@@ -28,7 +28,7 @@ src/
     404.astro               ← pagina non trovata
   components/
     Nav.astro               ← barra sticky, wordmark + CTA
-    Hero.astro              ← titolo + render, diptych 7/5
+    Hero.astro              ← confronto disegno/render con testo a scomparsa
     Manifesto.astro         ← fascia grafite, claim + prosa
     Duality.astro           ← Casa / Attività, due righe che alternano il lato
     Servizi.astro           ← schede tecniche Interni / Esterni
@@ -38,6 +38,7 @@ src/
     Footer.astro            ← testata di chiusura
   data/preventivo.ts        ← LE DOMANDE DEL FORM  ← si modifica qui
   scripts/preventivo.ts     ← passi, validazione, invio
+  scripts/hero-comparison.ts ← trascinamento, tastiera e ritaglio della hero
   assets/img/               ← i 5 render (Astro li ottimizza in webp)
 ```
 
@@ -285,9 +286,8 @@ Contenuti da confermare con il cliente:
 
 - L'elenco dei lavori sotto **Casa** in `Duality.astro` è dedotto: la brochure
   parla solo di strutture ricettive.
-- Le tre righe di rassicurazione accanto al form (`Preventivo.astro`) —
-  «Rispondiamo entro 2 giorni lavorativi», «Il sopralluogo serve prima del
-  numero» — sono promesse operative: vanno confermate o cambiate.
+- Il modulo non indica un tempo di risposta: la precedente promessa di due
+  giorni lavorativi è stata rimossa perché non confermata.
 - **Non ci sono render di esterni** e **non ci sono render residenziali**: la
   sezione Esterni è oggi solo tipografica e i due render usati per «Casa» sono i
   più plausibili fra quelli disponibili. Con foto di cantieri veri si aggiunge
@@ -302,10 +302,15 @@ Le scelte strutturali sono registrate nell'intestazione di `tokens.css` e in
 brochure, display Bricolage Grotesque, body Geist, mono Geist Mono per numerali
 ed etichette.
 
-Tre sole animazioni in tutta la pagina: l'ingresso dell'hero al carico, la
-pressione dei bottoni, il cambio di passo del form. Tutte rispettano
+La hero sovrappone `04-lounge-drawing.png` a `04-lounge.png`. Su desktop il
+separatore cancella anche il testo; sotto i 60rem il testo resta sopra il
+confronto. Le immagini condividono dimensioni e ritaglio. Il controllo supporta
+mouse, touch e tastiera (frecce, Home/Fine e Pagina su/giù), senza movimento
+automatico. Senza JavaScript rimane visibile il confronto statico.
+
+La pressione dei bottoni e il cambio di passo del form rispettano
 `prefers-reduced-motion`.
 
 Il sito non carica nessuna libreria di terze parti: zero dipendenze runtime,
-solo i font autoospitati. Il bundle JavaScript della pagina è il configuratore
-del preventivo e nient'altro.
+solo i font autoospitati. Il JavaScript gestisce il confronto nella hero,
+la galleria del portfolio e il modulo preventivo.
