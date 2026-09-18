@@ -45,3 +45,8 @@ immagini-interni/
 # src/assets/, quelle sì versionate. GitHub rifiuterebbe questa cartella
 # comunque (limite per file e per repo).
 LAVORI X MARKETING/
+
+# I ritagli del bar/tabacchi, come arrivati dal cliente. Le otto versioni
+# usate dal sito stanno in public/render/, rifilate dei bordi residui e
+# rinominate: quelle sono versionate, questa è solo la cartella di partenza.
+ritagli_solo_foto/

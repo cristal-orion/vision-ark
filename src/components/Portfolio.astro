@@ -4,8 +4,16 @@ const collections = [
     id: "render", label: "Render", subtitle: "Proposte in 3D",
     description: "Nei render puoi vedere come abbiamo progettato la disposizione degli arredi e gli abbinamenti di materiali e colori.",
     images: [
+      { file: "bar-tabacchi-banco-archi", title: "Banco e nicchie ad arco", detail: "Banco · Bar/Tabacchi", alt: "Render del banco bar con fronte a listelli azzurri, piano in legno e nicchie ad arco rosse sulla parete.", width: 1404, height: 1001 },
+      { file: "bar-tabacchi-parete-verde", title: "Mensola e giardini verticali", detail: "Sala · Bar/Tabacchi", alt: "Render della sala con parete ottanio, giardini verticali, mensola in legno e sgabelli alti.", width: 1150, height: 1150 },
       { file: "casa-giovanna-openspace", title: "Soggiorno e cucina", detail: "Open space · Casa Giovanna", alt: "Render di un open space con divano chiaro, sedute in velluto terracotta e cucina in legno.", width: 2000, height: 1125 },
       { file: "ciro-marino-zona-giorno", title: "Soggiorno con parete ocra", detail: "Zona giorno · Ciro Marino", alt: "Render di un soggiorno con divano curvo, parete ocra e tavolo da pranzo in legno.", width: 2000, height: 1250 },
+      { file: "bar-tabacchi-ingresso", title: "Vista dall’ingresso", detail: "Ingresso · Bar/Tabacchi", alt: "Render del locale visto dall’ingresso, con soffitto rosso, murale dipinto e banco sul fondo.", width: 1184, height: 1166 },
+      { file: "bar-tabacchi-banco-frontale", title: "Il banco visto di fronte", detail: "Banco · Bar/Tabacchi", alt: "Render frontale del banco bar con sgabelli allineati e nicchie ad arco rosse alle spalle.", width: 1794, height: 686 },
+      { file: "bar-tabacchi-prima", title: "Il locale prima dell’intervento", detail: "Stato di fatto · Bar/Tabacchi", type: "Stato di fatto", alt: "Fotografia del negozio prima dei lavori, con vetrine in legno scuro e banco esistente.", width: 615, height: 384 },
+      { file: "bar-tabacchi-dopo", title: "Lo stesso banco dopo il progetto", detail: "Dopo · Bar/Tabacchi", alt: "Render del banco rinnovato, con fronte a listelli azzurri, macchina del caffè e nicchie rosse.", width: 1136, height: 817 },
+      { file: "bar-tabacchi-vetrina", title: "Vetrina refrigerata", detail: "Banco · Bar/Tabacchi", alt: "Render del banco con vetrina refrigerata, calici appesi e nicchie ad arco rosse.", width: 1144, height: 1143 },
+      { file: "bar-tabacchi-tavoli-alti", title: "Tavoli alti davanti al murale", detail: "Sala · Bar/Tabacchi", alt: "Render della sala con tavoli alti, sgabelli e murale dipinto a tutta parete accanto a una siepe verticale.", width: 1376, height: 1099 },
       { file: "antonio-capuozzo-ingresso", title: "Boiserie chiara nel soggiorno", detail: "Soggiorno · Antonio Capuozzo", alt: "Render di un soggiorno con boiserie chiara, divano e lampada a sospensione sopra il tavolo.", width: 2000, height: 1125 },
       { file: "giovanna-lucarelli-cucina", title: "Cucina in legno e marmo", detail: "Cucina · Giovanna Lucarelli", alt: "Render di una cucina in legno e marmo con tavolo ovale e sedute blu.", width: 2000, height: 1250 },
       { file: "caridi-cucina", title: "Cucina ad angolo", detail: "Cucina · Caridi", alt: "Render di una cucina ad angolo nei toni della pietra e del legno, con sedute terracotta.", width: 2000, height: 1125 },
@@ -35,7 +43,7 @@ const collections = [
     <header class="portfolio__head">
       <p class="label">Portfolio</p>
       <h2 class="display display--s" id="portfolio-title"><span class="display__lead">Progetti e</span>realizzazioni</h2>
-      <p class="portfolio__intro">Una selezione dei nostri interni residenziali, con render di progetto e fotografie dei lavori completati.</p>
+      <p class="portfolio__intro">Una selezione dei nostri interni, residenziali e commerciali, con render di progetto e fotografie dei lavori completati.</p>
     </header>
 
     <div class="portfolio__bar">
@@ -57,7 +65,7 @@ const collections = [
               <a class="portfolio__image" href={`/${collection.id}/${photo.file}.webp`} data-photo data-title={photo.title} data-detail={photo.detail} aria-label={`Ingrandisci: ${photo.title}, ${photo.detail}`}>
                 <img src={`/${collection.id}/${photo.file}.webp`} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" />
                 <span class="portfolio__expand" aria-hidden="true">↗</span>
-                <span class="portfolio__type" aria-hidden="true">{collection.id === "render" ? "Visualizzazione 3D" : "Realizzazione"}</span>
+                <span class="portfolio__type" aria-hidden="true">{photo.type ?? (collection.id === "render" ? "Visualizzazione 3D" : "Realizzazione")}</span>
               </a>
               <figcaption class="portfolio__caption">
                 <span class="portfolio__number">{String(index + 1).padStart(2, "0")}</span>
