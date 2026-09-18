@@ -273,12 +273,14 @@ const total = String(steps.length).padStart(2, "0");
     transition: color var(--dur-short) var(--ease-out);
   }
 
+  /* Palette neutra: la scala del passo è tonale, non cromatica.
+     da fare = filetto chiaro · fatto = grigio medio · corrente = grafite. */
   .tick[data-done] .tick__bar {
-    background: var(--color-ink);
+    background: var(--color-neutral);
   }
 
   .tick[aria-current="step"] .tick__bar {
-    background: var(--color-accent);
+    background: var(--color-ink);
   }
 
   .tick[aria-current="step"] .tick__label {

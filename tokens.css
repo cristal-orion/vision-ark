@@ -1,9 +1,9 @@
 /* Hallmark · macrostructure: Split Studio · H2 hero knobs: ratio=7/5, right=photo, divider=vertical-rule
  * genre: editorial (tone: brutalist/poster, user-chosen) · nav: N7 Brutal slab · footer: Ft1 Mast-headed
  * theme: custom · vibe: "travertino, grafite, ottone, spigoli duri"
- * paper: oklch(96.5% 0.008 82) · accent: oklch(66% 0.13 78)
+ * paper: oklch(96.5% 0.008 82) · accent: oklch(66% 0.012 82) [PROVA neutra]
  * display: Urbanist · body: Geist · outlier: Geist Mono
- * axes: light / display-heavy / chromatic-amber (~78°)
+ * axes: light / display-heavy / neutral (PROVA: era chromatic-amber ~78°)
  * studied: no · context: user-provided · v1.0.0
  * contrast: pass (46–50) · nav: N7 · footer: Ft1 · slop: pass (51–55)
  * Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V5
@@ -29,15 +29,16 @@
   --color-muted: oklch(49% 0.012 80); /* testo de-enfatizzato — ≥4.5:1 su tutte e tre le carte */
   --color-neutral: oklch(58% 0.011 82); /* la prima parola in grigio della brochure — solo a corpo display (≥3:1) */
 
-  --color-accent: oklch(66% 0.13 78); /* ottone — fill, filetti, stati attivi  */
-  --color-accent-2: oklch(73% 0.13 78); /* ottone chiaro — hover su fill: schiarire
-                                           tiene il testo grafite a 7.6:1, scurire
-                                           lo portava sotto soglia */
-  /* L'ottone a L66 su carta L96.5 non arriva a 3:1: per l'ottone *come testo*
-     su fondo chiaro serve questa versione scurita (≈5:1). Mai per il body. */
-  --color-accent-text: oklch(44% 0.13 74);
-  --color-accent-ink: oklch(19% 0.012 80); /* testo sopra l'ottone (L>50 → ink) */
-  --color-focus: oklch(62% 0.19 78); /* anello di focus, chroma alzata         */
+  /* PROVA · accento neutro. Stessa luminosità dell'ottone (L66), chroma quasi a
+     zero: la struttura tonale della pagina non cambia, sparisce solo il colore.
+     Resta la tinta calda (hue 82, C .012) come tutti gli altri neutri. */
+  --color-accent: oklch(66% 0.012 82); /* grigio — fill, filetti, stati attivi  */
+  --color-accent-2: oklch(74% 0.012 82); /* grigio chiaro — hover su fill: ink sopra a 8.0:1 */
+  /* Il grigio a L66 su carta L96.5 non arriva a 3:1: come *testo* su fondo
+     chiaro serve questa versione scurita (7.0:1). Mai per il body. */
+  --color-accent-text: oklch(44% 0.012 80);
+  --color-accent-ink: oklch(19% 0.012 80); /* testo sopra il grigio (L>50 → ink) */
+  --color-focus: oklch(44% 0.012 80); /* anello di focus: senza chroma serve tono scuro */
 
   /* Inversi — per le fasce piene in grafite */
   --color-on-ink: oklch(95% 0.008 82);
