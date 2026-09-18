@@ -2,7 +2,7 @@
  * genre: editorial (tone: brutalist/poster, user-chosen) · nav: N7 Brutal slab · footer: Ft1 Mast-headed
  * theme: custom · vibe: "travertino, grafite, ottone, spigoli duri"
  * paper: oklch(96.5% 0.008 82) · accent: oklch(66% 0.13 78)
- * display: Bricolage Grotesque · body: Geist · outlier: Geist Mono
+ * display: Urbanist · body: Geist · outlier: Geist Mono
  * axes: light / display-heavy / chromatic-amber (~78°)
  * studied: no · context: user-provided · v1.0.0
  * contrast: pass (46–50) · nav: N7 · footer: Ft1 · slop: pass (51–55)
@@ -56,7 +56,7 @@
   --color-scrim-strong: oklch(19% 0.012 80 / 0.78);
 
   /* ─── Tipografia ──────────────────────────────────────────────────────── */
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-display: "Urbanist Variable", "Urbanist", ui-sans-serif, sans-serif;
   --font-body: "Geist Variable", "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono Variable", "Geist Mono", ui-monospace, monospace;
 
