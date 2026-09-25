@@ -1,79 +1,163 @@
 ---
-/**
- * Informativa privacy — IMPIANTO, NON TESTO LEGALE.
- *
- * Titolare, sede e recapiti sono ora quelli veri (src/data/contatti.ts).
- * Resta aperto quanto non si inventa: i tempi di conservazione. Prima di
- * pubblicare va comunque fatta vedere a chi di dovere.
- */
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { contatti, sedeEstesa } from "../data/contatti";
 
-const sections = [
-  {
-    title: "Titolare del trattamento",
-    body: `${contatti.nome}, con sede in ${sedeEstesa}, P. IVA ${contatti.partitaIva}. Per ogni richiesta: ${contatti.email} — tel. ${contatti.telefono}.`,
-  },
-  {
-    title: "Quali dati raccogliamo",
-    body: "Solo quelli che inserisci nel modulo di richiesta preventivo: tipo di immobile, ambienti d’interesse, nome e cognome, email, telefono, indirizzo dell’immobile e le note che scrivi. Non usiamo cookie di profilazione e non ci sono strumenti di tracciamento pubblicitario su questo sito.",
-  },
-  {
-    title: "Perché li trattiamo",
-    body: "Per rispondere alla tua richiesta e, se il lavoro va avanti, per formulare un preventivo e gestire il rapporto. La base giuridica è il tuo consenso per il primo contatto e l’esecuzione di un contratto o di trattative precontrattuali per il resto.",
-  },
-  {
-    title: "A chi li comunichiamo",
-    body: "Il modulo viene recapitato attraverso un nostro server e inviato per posta elettronica tramite Brevo (Sendinblue SAS, Francia — server nell’Unione Europea), che agisce come responsabile del trattamento. Oltre a questo, i dati possono essere visti dai nostri tecnici e collaboratori coinvolti nel progetto. Nessuna cessione a terzi per finalità commerciali.",
-  },
-  {
-    title: "Per quanto tempo",
-    body: "[Da definire] mesi per le richieste che non diventano un lavoro; per la durata del rapporto più i termini di legge nei casi in cui si arrivi al contratto.",
-  },
-  {
-    title: "I tuoi diritti",
-    body: `Puoi chiedere in ogni momento accesso, rettifica, cancellazione, limitazione e portabilità dei dati, e revocare il consenso. Scrivi a ${contatti.email}: rispondiamo entro trenta giorni. Puoi anche rivolgerti al Garante per la protezione dei dati personali.`,
-  },
+const chapters = [
+  { id: "titolare", label: "Chi tratta i dati" },
+  { id: "dati", label: "Quali dati" },
+  { id: "finalita", label: "Per quali finalità" },
+  { id: "destinatari", label: "Chi li riceve" },
+  { id: "conservazione", label: "Quanto li conserviamo" },
+  { id: "diritti", label: "I tuoi diritti" },
+  { id: "cookie", label: "Cookie e tracciamento" },
 ];
-
-const updated = "11 settembre 2026";
 ---
 
 <Base
   title="Informativa privacy — Vision Ark"
-  description="Come Vision Ark tratta i dati personali raccolti attraverso il modulo di richiesta preventivo."
+  description="Come Vision Ark tratta i dati inviati con il modulo di preventivo e quelli tecnici generati durante la visita al sito."
 >
-  <meta slot="head" name="robots" content="noindex" />
-
   <Nav />
 
-  <main id="contenuto" class="legal section">
-    <div class="shell legal__shell">
-      <h1 class="legal__title">Informativa privacy</h1>
-      <p class="legal__meta">Ultimo aggiornamento: {updated}</p>
+  <main id="contenuto" class="legal">
+    <header class="legal__intro">
+      <div class="shell">
+        <p class="label legal__eyebrow">Vision Ark / Informativa</p>
+        <h1 class="display legal__title">I tuoi dati,<br /><span class="slab">con chiarezza.</span></h1>
+        <p class="legal__lead">
+          Qui trovi quali informazioni raccogliamo quando visiti il sito o ci chiedi
+          un preventivo, a cosa servono e come puoi gestirle.
+        </p>
+        <p class="legal__date">Informativa ai sensi dell’art. 13 del GDPR · Aggiornata il 25 settembre 2026</p>
+      </div>
+    </header>
 
-      <p class="legal__draft">
-        Questa pagina &egrave; una bozza strutturale. La voce fra parentesi
-        quadre &mdash; i tempi di conservazione &mdash; va completata prima
-        della pubblicazione.
-      </p>
+    <div class="shell legal__layout">
+      <aside class="legal__index" aria-label="Indice dell’informativa">
+        <p class="legal__index-title">In questa pagina</p>
+        <nav aria-label="Sezioni dell’informativa privacy">
+          <ol>
+            {chapters.map((chapter, i) => (
+              <li>
+                <a href={`#${chapter.id}`}>
+                  <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                  {chapter.label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
 
-      {
-        sections.map((section) => (
-          <section class="legal__block">
-            <h2 class="legal__heading">{section.title}</h2>
-            <p class="legal__body">{section.body}</p>
-          </section>
-        ))
-      }
+      <div class="legal__content">
+        <section class="legal__section" id="titolare" aria-labelledby="titolo-titolare">
+          <p class="legal__number" aria-hidden="true">01 / Titolare</p>
+          <h2 id="titolo-titolare">Chi tratta i tuoi dati</h2>
+          <p>
+            Il titolare del trattamento è {contatti.nome}, P. IVA {contatti.partitaIva},
+            con sede in {sedeEstesa}. Puoi contattarci scrivendo a{" "}
+            <a href={`mailto:${contatti.email}`}>{contatti.email}</a> o chiamando il{" "}
+            <a href={`tel:${contatti.telefonoHref}`}>{contatti.telefono}</a>.
+          </p>
+        </section>
 
-      <p class="legal__back">
-        <a class="legal__link" href="/#preventivo">
-          <span aria-hidden="true">&larr;</span> Torna alla richiesta di preventivo
-        </a>
-      </p>
+        <section class="legal__section" id="dati" aria-labelledby="titolo-dati">
+          <p class="legal__number" aria-hidden="true">02 / Dati raccolti</p>
+          <h2 id="titolo-dati">Quali informazioni raccogliamo</h2>
+          <ul>
+            <li><strong>Nel modulo di preventivo:</strong> tipo di immobile, ambienti da ristrutturare, nome e cognome, email, telefono, indirizzo dell’immobile e gli eventuali dettagli che scegli di scrivere nelle note. Registriamo anche la presa visione dell’informativa.</li>
+            <li><strong>Quando ci scrivi o ci chiami:</strong> i recapiti e il contenuto delle comunicazioni che ci invii, necessari per risponderti.</li>
+            <li><strong>Durante l’uso del sito e l’invio del modulo:</strong> dati tecnici di connessione, come indirizzo IP, data e ora della richiesta e URL della pagina. Il modulo invia anche l’istante di caricamento della pagina e un campo antispam vuoto; il servizio di recapito usa l’IP per limitare gli invii abusivi. Le richieste possono generare log tecnici sul server.</li>
+          </ul>
+          <p>
+            I campi contrassegnati come obbligatori servono per gestire la richiesta;
+            senza di essi non possiamo ricevere il preventivo dal modulo. Le note
+            sono facoltative: evita di inserirvi dati non necessari, in particolare
+            informazioni sensibili su di te o su altre persone.
+          </p>
+        </section>
+
+        <section class="legal__section" id="finalita" aria-labelledby="titolo-finalita">
+          <p class="legal__number" aria-hidden="true">03 / Finalità</p>
+          <h2 id="titolo-finalita">Perché li utilizziamo</h2>
+          <ul>
+            <li><strong>Rispondere e preparare un preventivo:</strong> esaminiamo la richiesta, ti ricontattiamo e valutiamo i lavori. La base giuridica è l’adozione di misure precontrattuali su tua richiesta (art. 6, par. 1, lett. b, GDPR).</li>
+            <li><strong>Gestire l’eventuale incarico:</strong> se il progetto prosegue, trattiamo i dati necessari a svolgere il lavoro e ad adempiere agli obblighi di legge (art. 6, par. 1, lett. b e c, GDPR).</li>
+            <li><strong>Proteggere il sito e il modulo:</strong> usiamo dati tecnici e controlli antispam per prevenire abusi e garantire il funzionamento del servizio, nel nostro legittimo interesse (art. 6, par. 1, lett. f, GDPR).</li>
+          </ul>
+          <p>Non utilizziamo la richiesta di preventivo per inviarti comunicazioni promozionali e non svolgiamo profilazione né processi decisionali automatizzati con effetti giuridici o analogamente significativi su di te.</p>
+        </section>
+
+        <section class="legal__section" id="destinatari" aria-labelledby="titolo-destinatari">
+          <p class="legal__number" aria-hidden="true">04 / Destinatari</p>
+          <h2 id="titolo-destinatari">Come arriva a noi la richiesta</h2>
+          <p>
+            Il modulo invia i dati a un servizio di recapito ospitato sulla VPS
+            dell’agenzia Two Bee. Il servizio trasmette la richiesta via email
+            attraverso Brevo (Sendinblue SAS). La notifica arriva alla casella
+            di Vision Ark; la tua email è impostata come indirizzo a cui rispondere.
+            Il servizio di recapito non conserva un archivio delle richieste, ma
+            registra eventi tecnici, incluso l’IP, senza riportare nei log il
+            contenuto dei campi.
+          </p>
+          <p>
+            Possono accedere ai dati anche i fornitori che gestiscono hosting e
+            posta elettronica e, se necessario, i collaboratori coinvolti nel
+            progetto, nei limiti delle rispettive attività. Non vendiamo i tuoi
+            dati. Per informazioni sui fornitori, sui luoghi di trattamento e
+            sulle eventuali garanzie per trasferimenti fuori dallo Spazio economico
+            europeo puoi scriverci all’indirizzo indicato sopra.
+          </p>
+        </section>
+
+        <section class="legal__section" id="conservazione" aria-labelledby="titolo-conservazione">
+          <p class="legal__number" aria-hidden="true">05 / Conservazione</p>
+          <h2 id="titolo-conservazione">Per quanto tempo</h2>
+          <p>
+            Conserviamo le richieste che non si trasformano in un incarico per un
+            massimo di 12 mesi dall’ultimo contatto, salvo che sia necessario
+            conservarle più a lungo per tutelare un diritto. Se avviamo un lavoro,
+            i dati necessari restano per la durata del rapporto e per i successivi
+            termini previsti dalla legge. I dati tecnici sono conservati per il
+            tempo necessario alla sicurezza del servizio e alla gestione di
+            eventuali anomalie, secondo le politiche dell’infrastruttura utilizzata.
+          </p>
+        </section>
+
+        <section class="legal__section" id="diritti" aria-labelledby="titolo-diritti">
+          <p class="legal__number" aria-hidden="true">06 / Diritti</p>
+          <h2 id="titolo-diritti">Puoi decidere sui tuoi dati</h2>
+          <p>
+            Puoi chiedere accesso ai tuoi dati, rettifica, cancellazione,
+            limitazione del trattamento o portabilità, quando prevista. Puoi
+            opporti al trattamento fondato sul legittimo interesse. Per esercitare
+            questi diritti scrivi a <a href={`mailto:${contatti.email}`}>{contatti.email}</a>:
+            risponderemo di norma entro un mese, secondo i termini del GDPR.
+            Hai anche il diritto di proporre reclamo al{" "}
+            <a href="https://www.garanteprivacy.it/" target="_blank" rel="noopener noreferrer">Garante per la protezione dei dati personali</a>.
+          </p>
+        </section>
+
+        <section class="legal__section" id="cookie" aria-labelledby="titolo-cookie">
+          <p class="legal__number" aria-hidden="true">07 / Navigazione</p>
+          <h2 id="titolo-cookie">Cookie e tracciamento</h2>
+          <p>
+            Questo sito non usa strumenti di analisi delle visite, cookie di
+            profilazione o pixel pubblicitari. I font sono ospitati sul sito e
+            la pagina non incorpora contenuti di terzi. La normale navigazione
+            genera comunque i dati tecnici di connessione descritti sopra.
+          </p>
+        </section>
+
+        <div class="legal__end">
+          <p>Hai una domanda su questa informativa?</p>
+          <a href={`mailto:${contatti.email}`}>{contatti.email} <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <a class="legal__back" href="/#preventivo"><span aria-hidden="true">←</span> Torna al preventivo</a>
+      </div>
     </div>
   </main>
 
@@ -81,74 +165,200 @@ const updated = "11 settembre 2026";
 </Base>
 
 <style>
-  .legal__shell {
-    max-width: 52rem;
+  .legal__intro {
+    padding-block: clamp(var(--space-2xl), 8vw, var(--space-4xl)) clamp(var(--space-xl), 5vw, var(--space-2xl));
+    border-block-end: var(--rule-slab) solid var(--color-ink);
+  }
+
+  .legal__eyebrow {
+    margin-block-end: var(--space-lg);
   }
 
   .legal__title {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(var(--text-2xl), 5vw + 0.4rem, var(--text-4xl));
-    line-height: var(--leading-display);
-    letter-spacing: var(--tracking-display);
-    text-transform: uppercase;
-    overflow-wrap: anywhere;
-    min-width: 0;
+    max-width: 17ch;
   }
 
-  .legal__meta {
-    margin-block-start: var(--space-sm);
+  .legal__lead {
+    max-width: 48ch;
+    margin-block-start: var(--space-xl);
+    font-size: clamp(var(--text-base), 1.2vw + 0.7rem, var(--text-md));
+    line-height: 1.45;
+    color: var(--color-ink-2);
+  }
+
+  .legal__date {
+    margin-block-start: var(--space-xl);
     font-family: var(--font-outlier);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .legal__layout {
+    display: grid;
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 3fr);
+    gap: clamp(var(--space-xl), 7vw, var(--space-4xl));
+    padding-block: clamp(var(--space-xl), 6vw, var(--space-3xl)) var(--space-3xl);
+  }
+
+  .legal__index {
+    align-self: start;
+    position: sticky;
+    top: 7rem;
+    border-block-start: var(--rule-slab) solid var(--color-ink);
+    padding-block-start: var(--space-md);
+  }
+
+  .legal__index-title,
+  .legal__number {
+    font-family: var(--font-outlier);
+    font-size: var(--text-sm);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--color-muted);
   }
 
-  .legal__draft {
+  .legal__index ol {
+    display: grid;
+    gap: var(--space-sm);
     margin-block-start: var(--space-lg);
-    padding: var(--space-md);
-    border-inline-start: var(--rule-heavy) solid var(--color-accent);
-    background: var(--color-paper-2);
-    font-size: var(--text-sm);
-    max-width: 60ch;
   }
 
-  .legal__block {
-    margin-block-start: var(--space-xl);
-    padding-block-start: var(--space-lg);
+  .legal__index a {
+    display: flex;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-ink-2);
+  }
+
+  .legal__index a span {
+    font-family: var(--font-outlier);
+    color: var(--color-muted);
+  }
+
+  .legal__index a:hover,
+  .legal__index a:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: var(--rule-slab);
+    text-underline-offset: var(--space-2xs);
+  }
+
+  .legal__content {
+    min-width: 0;
+  }
+
+  .legal__section {
+    padding-block: var(--space-xl) clamp(var(--space-xl), 4vw, var(--space-2xl));
     border-block-start: var(--rule-hair) solid var(--color-rule);
   }
 
-  .legal__heading {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: var(--text-md);
-    line-height: var(--leading-tight);
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
+  .legal__section:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
   }
 
-  .legal__body {
-    margin-block-start: var(--space-sm);
+  .legal__section h2 {
+    max-width: 24ch;
+    margin-block: var(--space-sm) var(--space-lg);
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-lg), 2.2vw + 0.5rem, var(--text-2xl));
+    font-weight: 800;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .legal__section p:not(.legal__number),
+  .legal__section ul {
     max-width: var(--measure);
     color: var(--color-ink-2);
   }
 
-  .legal__back {
-    margin-block-start: var(--space-2xl);
+  .legal__section p + p,
+  .legal__section ul + p {
+    margin-block-start: var(--space-md);
   }
 
-  .legal__link {
+  .legal__section ul {
+    display: grid;
+    gap: var(--space-md);
+    padding-inline-start: var(--space-lg);
+    list-style: square;
+  }
+
+  .legal__section strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .legal__section a,
+  .legal__end a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-text);
+    text-underline-offset: var(--space-2xs);
+    overflow-wrap: anywhere;
+  }
+
+  .legal__section a:hover,
+  .legal__end a:hover {
+    text-decoration-thickness: var(--rule-slab);
+  }
+
+  .legal__end {
+    margin-block: var(--space-md) var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+
+  .legal__end p {
+    margin-block-end: var(--space-xs);
+    color: var(--color-on-ink-2);
+  }
+
+  .legal__end a {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-md), 2vw + 0.5rem, var(--text-xl));
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    text-decoration-color: var(--color-accent);
+  }
+
+  .legal__back {
+    display: inline-flex;
+    gap: var(--space-xs);
+    align-items: center;
+    min-height: 44px;
     font-family: var(--font-outlier);
     font-size: var(--text-sm);
-    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
     border-block-end: var(--rule-slab) solid var(--color-accent);
-    padding-block-end: var(--space-3xs);
   }
 
-  .legal__link:hover {
+  .legal__back:hover {
     border-block-end-color: var(--color-ink);
+  }
+
+  @media (width < 48rem) {
+    .legal__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .legal__index {
+      position: static;
+    }
+
+    .legal__index ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (width < 30rem) {
+    .legal__index ol {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

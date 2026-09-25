@@ -94,6 +94,9 @@ const total = String(steps.length).padStart(2, "0");
                           />
                           <span class="consent__text">{field.label}</span>
                         </label>
+                        <a class="consent__link" href="/privacy" target="_blank" rel="noopener noreferrer">
+                          Leggi l’informativa privacy <span aria-hidden="true">↗</span>
+                        </a>
                         <p class="error" data-error-for={field.name} role="alert"></p>
                       </div>
                     ) : field.kind === "textarea" ? (
@@ -572,6 +575,15 @@ const total = String(steps.length).padStart(2, "0");
     font-size: var(--text-sm);
     line-height: 1.45;
     color: var(--color-ink-2);
+  }
+
+  .consent__link {
+    display: inline-block;
+    margin-block-start: var(--space-xs);
+    font-size: var(--text-sm);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   .consent[data-invalid] .consent__box {

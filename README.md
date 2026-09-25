@@ -1,6 +1,6 @@
 # Vision Ark — landing page
 
-Sito statico in **Astro 7**. Una pagina (`/`), una bozza di informativa privacy
+Sito statico in **Astro 7**. Una pagina (`/`), l'informativa privacy
 (`/privacy`) e un 404. Nessun framework UI, nessun Tailwind: CSS con token e
 stili scoped per componente.
 
@@ -24,7 +24,7 @@ src/
   layouts/Base.astro        ← <head>, meta, font, skip-link
   pages/
     index.astro             ← assembla le sezioni
-    privacy.astro           ← bozza informativa (da completare)
+    privacy.astro           ← informativa privacy
     404.astro               ← pagina non trovata
   components/
     Nav.astro               ← barra sticky, wordmark + CTA
@@ -89,7 +89,7 @@ Tipi di campo disponibili:
 | `email`    | come `text`, con validazione del formato                        | idem                                 |
 | `tel`      | come `text`, chiede almeno 8 cifre                              | idem                                 |
 | `textarea` | testo lungo                                                     | `rows`, `placeholder`                |
-| `consent`  | spunta di consenso                                              | `required`                           |
+| `consent`  | spunta di presa visione dell'informativa                          | `required`                           |
 
 `span: 2` fa occupare al campo la riga intera; senza, sta a metà riga.
 `required: true` lo rende obbligatorio per passare al passo successivo.
@@ -267,9 +267,10 @@ sta in `astro.config.mjs` (`site`), da cui Astro deriva canonical e `og:url`.
 
 Resta aperto:
 
-- **`/privacy`** — i tempi di conservazione (`[Da definire] mesi`) e la ragione
-  sociale completa, se diversa da «Vision Ark». Il form raccoglie dati
-  personali: questa pagina serve davvero e va fatta vedere a chi di dovere.
+- **`/privacy`** — confermare con il titolare che «Vision Ark» sia la ragione
+  sociale corretta e che le richieste non sfociate in incarico vengano eliminate
+  entro 12 mesi dall'ultimo contatto. Verificare anche i tempi dei log e le
+  condizioni dei fornitori di hosting e posta prima della pubblicazione.
 - **`form-relay`** — la voce `vision-ark` nel `config.json` sulla VPS, col
   destinatario vero e le origini di produzione.
 - **`src/pages/index.astro`** — nello schema JSON-LD mancano `logo` e `image`:

@@ -16,7 +16,7 @@ export type ChoiceOption = {
 /**
  * `label` è quello che legge chi compila. `shortLabel`, quando c'è, è quello
  * che legge chi riceve la notifica: serve per i campi la cui etichetta visibile
- * è una frase intera — un consenso privacy per esteso, in una mail, diventa
+ * è una frase intera — la presa visione dell'informativa, in una mail, diventa
  * una riga illeggibile.
  */
 export type Field =
@@ -178,8 +178,8 @@ export const steps: Step[] = [
         kind: "consent",
         name: "privacy",
         label:
-          "Ho letto l'informativa privacy e acconsento al trattamento dei dati per essere ricontattato.",
-        shortLabel: "Consenso privacy",
+          "Ho letto l'informativa sul trattamento dei dati personali.",
+        shortLabel: "Informativa privacy letta",
         required: true,
       },
     ],

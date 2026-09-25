@@ -187,7 +187,7 @@ function init(form: HTMLFormElement) {
     if (first instanceof HTMLInputElement && (first.type === "radio" || first.type === "checkbox")) {
       const picked = inputs.some((i) => (i as HTMLInputElement).checked);
       if (picked) return null;
-      if (name === "privacy") return "Serve il consenso per poterti ricontattare.";
+      if (name === "privacy") return "Leggi e conferma la presa visione dell’informativa privacy.";
       return inputs.length > 2 || first.type === "checkbox"
         ? "Seleziona almeno una voce."
         : "Seleziona una voce.";
