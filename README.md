@@ -271,6 +271,9 @@ Resta aperto:
   sociale corretta e che le richieste non sfociate in incarico vengano eliminate
   entro 12 mesi dall'ultimo contatto. Verificare anche i tempi dei log e le
   condizioni dei fornitori di hosting e posta prima della pubblicazione.
+  Il layout carica Google Tag Manager, il cui contenitore include Google Analytics 4
+  e Meta Pixel: servono gestione del consenso prima del caricamento dei tag e
+  verifica puntuale dei cookie e dei trasferimenti dei fornitori.
 - **`form-relay`** — la voce `vision-ark` nel `config.json` sulla VPS, col
   destinatario vero e le origini di produzione.
 - **`src/pages/index.astro`** — nello schema JSON-LD mancano `logo` e `image`:
@@ -312,6 +315,6 @@ automatico. Senza JavaScript rimane visibile il confronto statico.
 La pressione dei bottoni e il cambio di passo del form rispettano
 `prefers-reduced-motion`.
 
-Il sito non carica nessuna libreria di terze parti: zero dipendenze runtime,
-solo i font autoospitati. Il JavaScript gestisce il confronto nella hero,
-la galleria del portfolio e il modulo preventivo.
+I font sono autoospitati. Il JavaScript del sito gestisce il confronto nella hero,
+la galleria del portfolio e il modulo preventivo. Il layout condiviso carica
+anche Google Tag Manager, che attiva Google Analytics 4 e Meta Pixel.
